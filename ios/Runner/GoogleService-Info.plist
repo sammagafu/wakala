@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>580713037371-pkt11pjb8h99fs3sk97sja4c3qm7qsc0.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.580713037371-pkt11pjb8h99fs3sk97sja4c3qm7qsc0</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDNs_eCHSRDPuPFnXnt4152DNmR9CsIk28</string>
+	<key>GCM_SENDER_ID</key>
+	<string>580713037371</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>wakalasearch.co.tz.wakalaapp.wakala</string>
+	<key>PROJECT_ID</key>
+	<string>wakala-search-311ce</string>
+	<key>STORAGE_BUCKET</key>
+	<string>wakala-search-311ce.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:580713037371:ios:2e852ba3b13dc5902ee61e</string>
+	<key>DATABASE_URL</key>
+	<string>https://wakala-search-311ce.firebaseio.com</string>
+</dict>
+</plist>
