@@ -103,24 +103,6 @@ class _HomeState extends State<Home> {
                             .headline5
                             ?.copyWith(color: kContentColorLightTheme),
                       ),
-                      // StreamBuilder(
-                      //   stream: _db
-                      //       .where("service", isEqualTo: "deposit")
-                      //       .snapshots(),
-                      //   builder:
-                      //       (BuildContext context, AsyncSnapshot snapshot) {
-                      //     if (snapshot.hasData) {
-                      //       _currentDeposit =
-                      //           snapshot.data.docs.first.get("amount");
-                      //       return Text(
-                      //         "${_currentDeposit}",
-                      //         style: Theme.of(context).textTheme.headline3,
-                      //       );
-                      //     } else {
-                      //       return Text("0");
-                      //     }
-                      //   },
-                      // ),
                     ],
                   ),
                 ),

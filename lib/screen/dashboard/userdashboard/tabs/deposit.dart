@@ -22,9 +22,6 @@ class _DepositState extends State<Deposit> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kPrimaryColor,
-      appBar: AppBar(
-        backgroundColor: kPrimaryColor,
-      ),
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.all(15),

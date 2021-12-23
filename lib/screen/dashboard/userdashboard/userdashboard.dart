@@ -40,11 +40,11 @@ class _UserDashboardState extends State<UserDashboard> {
             label: "Dashboard",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.upload),
+            icon: Icon(Icons.arrow_circle_up),
             label: "Deposit",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.downloading),
+            icon: Icon(Icons.arrow_circle_down),
             label: "Withdraw",
           ),
         ],
