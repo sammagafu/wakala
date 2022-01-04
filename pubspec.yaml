@@ -41,6 +41,7 @@ dependencies:
   firebase_core: ^1.10.6
   geolocator: ^8.0.1
   google_maps_flutter: ^2.1.1
+  url_launcher: ^6.0.17
 
 dev_dependencies:
   flutter_test:

@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:wakala/screen/dashboard/admindashboard/agentdashboard.dart';
+import 'package:wakala/screen/dashboard/admindashboard/tabs/message.dart';
 import 'package:wakala/screen/dashboard/userdashboard/userdashboard.dart';
 import 'package:wakala/screen/registration/registerAgent.dart';
 import 'package:wakala/screen/registration/registerClient.dart';
@@ -8,6 +9,7 @@ import 'package:wakala/screen/welcomescreen/createaccount.dart';
 import 'package:wakala/screen/welcomescreen/landingscreen.dart';
 import 'package:wakala/screen/welcomescreen/login.dart';
 import 'package:wakala/theme/theme.dart';
+import 'package:geolocator/geolocator.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

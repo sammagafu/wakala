@@ -28,6 +28,8 @@ class _WithdrawBankState extends State<WithdrawBank> {
     return Scaffold(
       backgroundColor: kPrimaryColor,
       appBar: AppBar(
+        backgroundColor: kPrimaryColor,
+        elevation: 0,
         title: new Text("Deposit to ${widget.banks.name} Agent".toLowerCase()),
       ),
       body: Padding(
@@ -100,7 +102,30 @@ class _WithdrawBankState extends State<WithdrawBank> {
   }
 
   Future<void> deposit() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
     final formState = _formKey.currentState;
+
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      return Future.error('Location services are disabled.');
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('Location permissions are denied');
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      // Permissions are denied forever, handle appropriately.
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+
     if (formState!.validate()) {
       Position position = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.high);

@@ -27,6 +27,8 @@ class _WithdrawDetailState extends State<WithdrawDetail> {
     return Scaffold(
         backgroundColor: kPrimaryColor,
         appBar: AppBar(
+          backgroundColor: kPrimaryColor,
+          elevation: 0,
           title: new Text("Withdraw ${widget.mno.name} Agent".toLowerCase()),
         ),
         body: Padding(
@@ -99,6 +101,28 @@ class _WithdrawDetailState extends State<WithdrawDetail> {
 
   Future<void> withdraw() async {
     final formState = _formKey.currentState;
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      return Future.error('Location services are disabled.');
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('Location permissions are denied');
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      // Permissions are denied forever, handle appropriately.
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+
     if (formState!.validate()) {
       Position position = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.high);

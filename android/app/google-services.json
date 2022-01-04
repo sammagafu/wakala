@@ -1,0 +1,84 @@
+{
+  "project_info": {
+    "project_number": "580713037371",
+    "firebase_url": "https://wakala-search-311ce.firebaseio.com",
+    "project_id": "wakala-search-311ce",
+    "storage_bucket": "wakala-search-311ce.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:580713037371:android:dc9519e7ef46631d2ee61e",
+        "android_client_info": {
+          "package_name": "com.example.wakala_search_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "580713037371-mkem6pt7mdo74me7ap16draqdf1hcdqr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA6R_uAoVPr0myllmLRibfFz2XxTVAMVI8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "580713037371-mkem6pt7mdo74me7ap16draqdf1hcdqr.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "580713037371-1lsc0g876g6g5a9ok0i69vauqlhpdkkg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "wakalaApp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:580713037371:android:2197bafd203f680b",
+        "android_client_info": {
+          "package_name": "tech.grittydevs.wakalasearch"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "580713037371-mkem6pt7mdo74me7ap16draqdf1hcdqr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA6R_uAoVPr0myllmLRibfFz2XxTVAMVI8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "580713037371-mkem6pt7mdo74me7ap16draqdf1hcdqr.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "580713037371-1lsc0g876g6g5a9ok0i69vauqlhpdkkg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "wakalaApp"
+              }
+            }
+          ]
+        }
+      },
+      "admob_app_id": "ca-app-pub-5106779353866384~6742918195"
+    }
+  ],
+  "configuration_version": "1"
+}

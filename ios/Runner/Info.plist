@@ -43,9 +43,17 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Wakala App uses location to connect you to a nearest agent</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-    <string>This app needs access to location when open.</string>
-    <key>NSLocationAlwaysUsageDescription</key>
-    <string>This app needs access to location when in the background.</string>
+	<string>This app needs access to location when in the background.</string>
+	<key>NSLocationUsageDescription</key>
+	<string>Wakala App uses location to connect you to a nearest agent</string>
+	<key>LSApplicationQueriesSchemes</key>
+    <array>
+      <string>https</string>
+      <string>http</string>
+      <string>tel</string>
+    </array>
 </dict>
 </plist>

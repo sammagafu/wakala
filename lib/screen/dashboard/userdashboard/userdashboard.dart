@@ -13,19 +13,19 @@ class UserDashboard extends StatefulWidget {
 }
 
 class _UserDashboardState extends State<UserDashboard> {
-  int selectedIndex = 0;
-  List<Widget> _widgetoption = [
-    // Dashboard(),
-    Home(),
-    Deposit(),
-    Withdraw(),
-  ];
+    int selectedIndex = 0;
+    List<Widget> _widgetoption = [
+      // Dashboard(),
+      Home(),
+      Deposit(),
+      Withdraw(),
+    ];
 
-  void _onItemTap(int index) {
-    setState(() {
-      selectedIndex = index;
-    });
-  }
+    void _onItemTap(int index) {
+      setState(() {
+        selectedIndex = index;
+      });
+    }
 
   @override
   Widget build(BuildContext context) {
