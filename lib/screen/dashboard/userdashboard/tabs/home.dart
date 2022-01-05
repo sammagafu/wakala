@@ -130,7 +130,7 @@ class _HomeState extends State<Home> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Row(
-                              crossAxisAlignment: CrossAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 messages.elementAt(index)['service'] ==
@@ -143,8 +143,17 @@ class _HomeState extends State<Home> {
                                         Icons.arrow_circle_up,
                                         color: kContentDarkTheme,
                                       ),
+                                SizedBox(
+                                  width: 10,
+                                ),
                                 Text(messages.elementAt(index)['service']),
+                                SizedBox(
+                                  width: 30,
+                                ),
                                 Text(messages.elementAt(index)['carrier']),
+                                SizedBox(
+                                  width: 30,
+                                ),
                                 Text(messages.elementAt(index)['amount']),
                               ],
                             ),

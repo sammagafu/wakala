@@ -59,8 +59,12 @@ class _AdminDashboardState extends State<AdminDashboard> {
       .collection('transaction')
       .where("is_active", isEqualTo: true)
       .where('is_completed', isEqualTo: false)
+      .where("status", isEqualTo: "ongoing")
       .limit(1)
       .snapshots(includeMetadataChanges: true);
+
+  final CollectionReference ttrips =
+      FirebaseFirestore.instance.collection("transaction_trips");
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -139,7 +143,14 @@ class _AdminDashboardState extends State<AdminDashboard> {
                                   .collection('transaction')
                                   .doc(_transactionData.id)
                                   .update({
+                                'is_active': false,
                                 'agent': FirebaseAuth.instance.currentUser!.uid
+                              });
+
+                              ttrips.doc(_transactionData.id).set({
+                                'agent': FirebaseAuth.instance.currentUser!.uid,
+                                'transaction': _transactionData.id,
+                                "accepted_time": Timestamp.now(),
                               });
 
                               Navigator.push(

@@ -7,6 +7,8 @@ import 'package:wakala/constants/constants.dart';
 import 'package:wakala/model/banks.dart';
 import 'package:wakala/screen/dashboard/userdashboard/sucesstransfer.dart';
 
+enum TransactionStatus { Cancelled, Ongoing, Finished }
+
 class WithdrawBank extends StatefulWidget {
   final banks;
   const WithdrawBank(this.banks);
@@ -139,6 +141,7 @@ class _WithdrawBankState extends State<WithdrawBank> {
             "request_time": Timestamp.now(),
             "service": "deposit",
             "user": _auth!.uid,
+            "status": "ongoing",
             "users_location": GeoPoint(position.latitude, position.longitude)
           })
           .then((value) => Navigator.push(context,

@@ -22,6 +22,7 @@ class TransactionOnMove extends StatefulWidget {
 class _TransactionOnMoveState extends State<TransactionOnMove> {
   double _latitude = 0;
   double _longitude = 0;
+
   final _transaction = FirebaseFirestore.instance.collection('transaction');
 
   Future<Position> _determinePosition() async {
@@ -50,6 +51,9 @@ class _TransactionOnMoveState extends State<TransactionOnMove> {
 
     var _mylocation = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
+
+    _latitude = _mylocation.latitude;
+    _longitude = _mylocation.longitude;
 
     return await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
@@ -141,7 +145,7 @@ class _TransactionOnMoveState extends State<TransactionOnMove> {
           } else {
             return Container(
               color: kPrimaryColor,
-              child: Center(
+              child: const Center(
                 child: CircularProgressIndicator(),
               ),
             );

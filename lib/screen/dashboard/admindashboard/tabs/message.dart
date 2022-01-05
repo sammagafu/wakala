@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:wakala/constants/constants.dart';
 
 class Message extends StatefulWidget {
-  static String id = "Messages";
   final data;
   const Message(this.data);
 
@@ -15,6 +14,7 @@ class Message extends StatefulWidget {
 class _MessageState extends State<Message> {
   final messageController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+
   final CollectionReference _message =
       FirebaseFirestore.instance.collection('message');
 
@@ -41,55 +41,133 @@ class _MessageState extends State<Message> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kPrimaryColor,
       appBar: AppBar(
+        leading: null,
+        backgroundColor: kPrimaryColor,
         title: Text("Message"),
       ),
-      body: Column(
-        children: [
-          StreamBuilder<QuerySnapshot>(
+      body: SafeArea(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            SizedBox(
+              height: 18,
+            ),
+            StreamBuilder<QuerySnapshot>(
               stream:
-                  _message.where("trip", isEqualTo: widget.data).snapshots(),
-              builder: (BuildContext context,
-                  AsyncSnapshot<QuerySnapshot> snapshot) {
-                if (snapshot.hasError) {
-                  return Text("Something went wrong");
+                  _message.where('trip', isEqualTo: widget.data).snapshots(),
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return Center(
+                    child: Text("No messages, start conversation"),
+                  );
                 }
-                if (snapshot.hasData) {
-                  return Text("done");
+                final messages = snapshot.data!.docs.reversed;
+                List<MessageBubble> messageBubbles = [];
+                for (var message in messages) {
+                  final messageText = message.get('message');
+                  final messageSender = message.get('sender');
+                  final currentUser = FirebaseAuth.instance.currentUser!.uid;
+
+                  final messageBubble = MessageBubble(
+                    sender: messageSender,
+                    text: messageText,
+                    isMe: currentUser == messageSender,
+                  );
+
+                  messageBubbles.add(messageBubble);
                 }
-                return Text("Loading");
-              }),
-          Spacer(flex: 2),
-          Form(
-            key: _formKey,
-            child: Expanded(
-              child: TextFormField(
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return ("Please Amount");
-                  }
-                  if (value.length > 6) {}
-                },
-                controller: messageController,
-                keyboardType: TextInputType.text,
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                  hintText: "Enter your message",
-                  hintStyle: TextStyle(color: Colors.grey),
-                  contentPadding:
-                      EdgeInsets.symmetric(vertical: 8, horizontal: 8),
-                  isDense: true,
-                  suffixIcon: IconButton(
-                    onPressed: () {
-                      sendMessage();
-                    },
-                    icon: Icon(Icons.send),
+                return Expanded(
+                  child: ListView(
+                    reverse: true,
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 6.0, vertical: 4.0),
+                    children: messageBubbles,
+                  ),
+                );
+              },
+            ),
+            Form(
+              key: _formKey,
+              child: Expanded(
+                flex: 1,
+                child: TextFormField(
+                  controller: messageController,
+                  keyboardType: TextInputType.text,
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    hintText: "Enter your message",
+                    hintStyle: TextStyle(color: Colors.grey),
+                    contentPadding:
+                        EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                    isDense: true,
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        sendMessage();
+                      },
+                      icon: Icon(
+                        Icons.send,
+                        color: kPrimaryColor,
+                      ),
+                    ),
+                  ),
+                  style: TextStyle(
+                    fontSize: 14.0,
+                    color: Colors.black54,
                   ),
                 ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class MessageBubble extends StatelessWidget {
+  MessageBubble({required this.sender, required this.text, required this.isMe});
+
+  final String sender;
+  final String text;
+  final bool isMe;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.all(4.0),
+      child: Column(
+        crossAxisAlignment:
+            isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            sender,
+            style: TextStyle(
+              fontSize: 12.0,
+              color: Colors.black54,
+            ),
+          ),
+          Material(
+            borderRadius: isMe
+                ? BorderRadius.only(
+                    topLeft: Radius.circular(30.0),
+                    bottomLeft: Radius.circular(30.0),
+                    bottomRight: Radius.circular(30.0))
+                : BorderRadius.only(
+                    bottomLeft: Radius.circular(30.0),
+                    bottomRight: Radius.circular(30.0),
+                    topRight: Radius.circular(30.0),
+                  ),
+            elevation: 5.0,
+            color: isMe ? kPrimaryColor : kSecondaryColor,
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+              child: Text(
+                text,
                 style: TextStyle(
-                  fontSize: 14.0,
-                  color: Colors.black54,
+                  color: isMe ? Colors.white : Colors.black54,
+                  fontSize: 15.0,
                 ),
               ),
             ),

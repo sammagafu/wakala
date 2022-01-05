@@ -6,6 +6,8 @@ import 'package:geolocator/geolocator.dart';
 import 'package:wakala/constants/constants.dart';
 import 'package:wakala/screen/dashboard/userdashboard/sucesstransfer.dart';
 
+enum TransactionStatus { Cancelled, Ongoing, Finished }
+
 class WithdrawDetail extends StatefulWidget {
   final mno;
   const WithdrawDetail(this.mno);
@@ -136,6 +138,7 @@ class _WithdrawDetailState extends State<WithdrawDetail> {
             "request_time": Timestamp.now(),
             "service": "withdraw",
             "user": _auth!.uid,
+            "status": "ongoing",
             "users_location": GeoPoint(position.latitude, position.longitude)
           })
           .then((value) => Navigator.push(context,
