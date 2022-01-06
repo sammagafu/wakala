@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:wakala/constants/constants.dart';
+import 'package:wakala/screen/welcomescreen/login.dart';
 
 class RegisterUserAgent extends StatefulWidget {
   // const RegisterUserAgent({Key? key}) : super(key: key);
@@ -18,6 +20,7 @@ class _RegisterUserAgentState extends State<RegisterUserAgent> {
   TextEditingController passwordController = TextEditingController();
   final is_agent = true;
   final _auth = FirebaseAuth.instance;
+  final _db = FirebaseFirestore.instance.collection("user_profile");
   String errorMessage = '';
 
   @override
@@ -234,7 +237,7 @@ class _RegisterUserAgentState extends State<RegisterUserAgent> {
                     NeumorphicButton(
                       margin: EdgeInsets.only(top: 12),
                       padding: EdgeInsets.all(25),
-                      onPressed: createUser,
+                      onPressed: createUserAgent,
                       style: NeumorphicStyle(
                         lightSource: LightSource.topLeft,
                         shape: NeumorphicShape.flat,
@@ -251,7 +254,7 @@ class _RegisterUserAgentState extends State<RegisterUserAgent> {
                 SizedBox(height: 32),
                 OutlinedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, '/login');
+                    Navigator.pushNamed(context, LoginScreen.id);
                   },
                   style: TextButton.styleFrom(
                       padding: EdgeInsets.all(20),
@@ -279,13 +282,22 @@ class _RegisterUserAgentState extends State<RegisterUserAgent> {
     );
   }
 
-  Future<void> createUser() async {
+  //TODO::Add profile capability
+  Future<void> createUserAgent() async {
     final _formstate = _formKey.currentState;
     if (_formstate!.validate()) {
       try {
-        final newuser = await _auth.createUserWithEmailAndPassword(
+        await _auth.createUserWithEmailAndPassword(
             email: emailController.text, password: passwordController.text);
-        Navigator.pushNamed(context, '/login');
+        await _auth.currentUser!.updateDisplayName(fullnameController.text);
+        await _db.doc(_auth.currentUser!.uid).set({
+          'fullname': fullnameController.text,
+          'is_agent': is_agent,
+          'is_user': false,
+          'phone_number': phoneNumberController.text,
+          'uiid': _auth.currentUser!.uid
+        });
+        await Navigator.pushNamed(context, LoginScreen.id);
       } on FirebaseAuthException catch (err) {
         if (err.code == 'email-already-in-use') {
           setState(() {

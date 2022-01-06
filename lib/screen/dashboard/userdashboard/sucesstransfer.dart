@@ -135,6 +135,7 @@ class _SuccessScreenState extends State<SuccessScreen> {
                           ],
                         ),
                         SizedBox(height: 24),
+                        //todo::check if its accepted
                         StreamBuilder(
                           stream: ttrips.doc(widget.data).snapshots(),
                           builder:

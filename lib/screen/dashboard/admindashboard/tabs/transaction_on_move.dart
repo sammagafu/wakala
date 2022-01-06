@@ -20,11 +20,7 @@ class TransactionOnMove extends StatefulWidget {
 }
 
 class _TransactionOnMoveState extends State<TransactionOnMove> {
-  double _latitude = 0;
-  double _longitude = 0;
-
   final _transaction = FirebaseFirestore.instance.collection('transaction');
-
   Future<Position> _determinePosition() async {
     bool serviceEnabled;
     LocationPermission permission;
@@ -49,12 +45,6 @@ class _TransactionOnMoveState extends State<TransactionOnMove> {
           'Location permissions are permanently denied, we cannot request permissions.');
     }
 
-    var _mylocation = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
-
-    _latitude = _mylocation.latitude;
-    _longitude = _mylocation.longitude;
-
     return await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
   }
@@ -65,18 +55,18 @@ class _TransactionOnMoveState extends State<TransactionOnMove> {
         future: _determinePosition(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
-            // print(snapshot.data);
             return Stack(
               children: [
                 Positioned.fill(
                   child: Opacity(
-                    opacity: 0.6,
+                    opacity: .5,
                     child: GoogleMap(
                       myLocationButtonEnabled: false,
                       zoomControlsEnabled: false,
                       mapType: MapType.normal,
                       initialCameraPosition: CameraPosition(
-                        target: LatLng(_latitude, _longitude),
+                        target: LatLng(
+                            snapshot.data.latitude, snapshot.data.longitude),
                         zoom: 16,
                       ),
                     ),

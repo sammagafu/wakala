@@ -1,6 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:wakala/constants/constants.dart';
+import 'package:wakala/screen/welcomescreen/login.dart';
 
 class RegisterUserClient extends StatefulWidget {
   static final String id = "registerclient";
@@ -12,10 +15,14 @@ class RegisterUserClient extends StatefulWidget {
 
 class _RegisterUserClientState extends State<RegisterUserClient> {
   final _formKey = GlobalKey<FormState>();
+  final _auth = FirebaseAuth.instance;
+  final _db = FirebaseFirestore.instance.collection("user_profile");
   TextEditingController fullnameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController phoneNumberController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  String errorMessage = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -227,9 +234,7 @@ class _RegisterUserClientState extends State<RegisterUserClient> {
                     NeumorphicButton(
                       margin: EdgeInsets.only(top: 12),
                       padding: EdgeInsets.all(25),
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {}
-                      },
+                      onPressed: createUserClient,
                       style: NeumorphicStyle(
                         lightSource: LightSource.topLeft,
                         shape: NeumorphicShape.flat,
@@ -246,7 +251,7 @@ class _RegisterUserClientState extends State<RegisterUserClient> {
                 SizedBox(height: 32),
                 OutlinedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, '/login');
+                    Navigator.pushNamed(context, LoginScreen.id);
                   },
                   style: TextButton.styleFrom(
                       padding: EdgeInsets.all(20),
@@ -272,5 +277,31 @@ class _RegisterUserClientState extends State<RegisterUserClient> {
         ),
       ),
     );
+  }
+
+  Future<void> createUserClient() async {
+    final _formstate = _formKey.currentState;
+    if (_formstate!.validate()) {
+      try {
+        await _auth.createUserWithEmailAndPassword(
+            email: emailController.text, password: passwordController.text);
+        await _auth.currentUser!.updateDisplayName(fullnameController.text);
+        await _db.doc(_auth.currentUser!.uid).set({
+          'fullname': fullnameController.text,
+          'is_agent': false,
+          'is_user': true,
+          'phone_number': phoneNumberController.text,
+          'uiid': _auth.currentUser!.uid
+        });
+        Navigator.pushNamed(context, LoginScreen.id);
+      } on FirebaseAuthException catch (err) {
+        if (err.code == 'email-already-in-use') {
+          setState(() {
+            errorMessage =
+                "The email address is already in use by another account";
+          });
+        }
+      }
+    }
   }
 }
