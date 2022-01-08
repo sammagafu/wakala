@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:geolocator/geolocator.dart';
@@ -51,95 +50,121 @@ class _TransactionOnMoveState extends State<TransactionOnMove> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-        future: _determinePosition(),
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (snapshot.hasData) {
-            return Stack(
-              children: [
-                Positioned.fill(
-                  child: Opacity(
-                    opacity: .5,
-                    child: GoogleMap(
-                      myLocationButtonEnabled: false,
-                      zoomControlsEnabled: false,
-                      mapType: MapType.normal,
-                      initialCameraPosition: CameraPosition(
-                        target: LatLng(
-                            snapshot.data.latitude, snapshot.data.longitude),
-                        zoom: 16,
-                      ),
+    return Scaffold(
+      body: StreamBuilder(
+          stream: _transaction.doc(widget.data.toString()).snapshots(),
+          builder: (BuildContext builder, AsyncSnapshot snapshot) {
+            if (snapshot.hasData) {
+              var user_ = snapshot.data['user'];
+              double latitude = snapshot.data['users_location'].latitude;
+              double longitude = snapshot.data['users_location'].longitude;
+              return Stack(
+                children: [
+                  FutureBuilder(
+                      future: _determinePosition(),
+                      builder: (BuildContext builder, AsyncSnapshot snapshot) {
+                        double distanceInMeters = Geolocator.distanceBetween(
+                            latitude,
+                            longitude,
+                            snapshot.data.latitude,
+                            snapshot.data.longitude);
+                        print("the distance between is $distanceInMeters");
+                        return Positioned.fill(
+                          child: Opacity(
+                            opacity: .9,
+                            child: GoogleMap(
+                              myLocationButtonEnabled: false,
+                              zoomControlsEnabled: true,
+                              mapType: MapType.normal,
+                              initialCameraPosition: CameraPosition(
+                                target: LatLng(latitude, longitude),
+                                tilt: 59.440717697143555,
+                                zoom: 16,
+                              ),
+                            ),
+                          ),
+                        );
+                      }),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 100, 20, 0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        StreamBuilder(
+                            stream: FirebaseFirestore.instance
+                                .collection("user_profile")
+                                .where('uiid', isEqualTo: user_)
+                                .snapshots(),
+                            builder:
+                                (BuildContext context, AsyncSnapshot snapshot) {
+                              if (snapshot.hasData) {
+                                var _phone = snapshot.data!.docs.first;
+                                return GestureDetector(
+                                  onTap: () {
+                                    launch("tel:${_phone['phone_number']}");
+                                  },
+                                  child: const CircleAvatar(
+                                    backgroundColor: kPrimaryColor,
+                                    radius: 25,
+                                    child: Icon(
+                                      Icons.phone,
+                                      color: kContentDarkTheme,
+                                    ),
+                                  ),
+                                );
+                              } else {
+                                return const CircularProgressIndicator();
+                              }
+                            }),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        Message(widget.data)));
+                          },
+                          child: const CircleAvatar(
+                            backgroundColor: kPrimaryColor,
+                            radius: 25,
+                            child: Icon(
+                              Icons.message,
+                              color: kContentDarkTheme,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 75, 20, 0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          launch("tel:+255788419991");
-                        },
-                        child: const CircleAvatar(
-                          backgroundColor: kPrimaryColor,
-                          radius: 25,
-                          child: Icon(
-                            Icons.phone,
-                            color: kContentDarkTheme,
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 40.0),
+                    child: Align(
+                        alignment: AlignmentDirectional.bottomCenter,
+                        child: TextButton(
+                          style: TextButton.styleFrom(
+                              backgroundColor: kPrimaryColor,
+                              padding:
+                                  const EdgeInsets.fromLTRB(24, 16, 24, 16)),
+                          onPressed: () {
+                            _transaction.doc(widget.data).update({
+                              "is_completed": true,
+                              "is_active": false,
+                              "status": "completed"
+                            });
+                            Navigator.pushNamed(context, AgentDashboard.id);
+                          },
+                          child: Text(
+                            "Finish Transaction",
+                            style: Theme.of(context).textTheme.bodyText2,
                           ),
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Message(widget.data)));
-                        },
-                        child: const CircleAvatar(
-                          backgroundColor: kPrimaryColor,
-                          radius: 25,
-                          child: Icon(
-                            Icons.message,
-                            color: kContentDarkTheme,
-                          ),
-                        ),
-                      ),
-                    ],
+                        )),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 24.0),
-                  child: Align(
-                      alignment: AlignmentDirectional.bottomCenter,
-                      child: TextButton(
-                        style: TextButton.styleFrom(
-                            backgroundColor: kPrimaryColor,
-                            padding: EdgeInsets.fromLTRB(24, 16, 24, 16)),
-                        onPressed: () {
-                          _transaction.doc(widget.data).update({
-                            "is_completed": true,
-                            "is_active": false,
-                          });
-                          Navigator.pushNamed(context, AgentDashboard.id);
-                        },
-                        child: Text(
-                          "Finish Transaction",
-                          style: Theme.of(context).textTheme.bodyText2,
-                        ),
-                      )),
-                ),
-              ],
-            );
-          } else {
-            return Container(
-              color: kPrimaryColor,
-              child: const Center(
-                child: CircularProgressIndicator(),
-              ),
-            );
-          }
-        });
+                ],
+              );
+            } else {
+              return const Text("An error happed");
+            }
+          }),
+    );
   }
 }

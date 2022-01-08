@@ -110,7 +110,7 @@ class _HomeState extends State<Home> {
             ],
           ),
           SizedBox(height: 24),
-          Text("My last activities"),
+          const Text("My last activities"),
           Expanded(
             child: StreamBuilder<QuerySnapshot>(
               stream: FirebaseFirestore.instance
@@ -135,23 +135,23 @@ class _HomeState extends State<Home> {
                               children: [
                                 messages.elementAt(index)['service'] ==
                                         'withdraw'
-                                    ? Icon(
+                                    ? const Icon(
                                         Icons.arrow_circle_down,
                                         color: kContentDarkTheme,
                                       )
-                                    : Icon(
+                                    : const Icon(
                                         Icons.arrow_circle_up,
                                         color: kContentDarkTheme,
                                       ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 10,
                                 ),
                                 Text(messages.elementAt(index)['service']),
-                                SizedBox(
+                                const SizedBox(
                                   width: 30,
                                 ),
                                 Text(messages.elementAt(index)['carrier']),
-                                SizedBox(
+                                const SizedBox(
                                   width: 30,
                                 ),
                                 Text(messages.elementAt(index)['amount']),

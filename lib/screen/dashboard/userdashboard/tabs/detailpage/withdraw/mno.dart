@@ -138,7 +138,7 @@ class _WithdrawDetailState extends State<WithdrawDetail> {
             "request_time": Timestamp.now(),
             "service": "withdraw",
             "user": _auth!.uid,
-            "status": "ongoing",
+            "status": "started",
             "users_location": GeoPoint(position.latitude, position.longitude)
           })
           .then((value) => Navigator.push(context,

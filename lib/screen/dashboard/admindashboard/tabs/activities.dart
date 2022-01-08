@@ -18,7 +18,7 @@ class _AdminActivitiesState extends State<AdminActivities> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.fromLTRB(15, 65, 15, 30),
+      padding: const EdgeInsets.fromLTRB(15, 65, 15, 30),
       color: kPrimaryColor,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,

@@ -22,21 +22,8 @@ class SuccessScreen extends StatefulWidget {
 class _SuccessScreenState extends State<SuccessScreen> {
   PageController controller = PageController();
 
-  double _latitude = 0;
-  double _longitude = 0;
   final CollectionReference _transaction =
       FirebaseFirestore.instance.collection('transaction');
-
-  static final CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(37.42796133580664, 49.085749655962),
-    zoom: 11,
-  );
-  Completer<GoogleMapController> _controller = Completer();
-
-  Future<Position> getMyLocation() async {
-    return await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
-  }
 
   Future<void> cancelTransaction() {
     return _transaction
@@ -59,40 +46,204 @@ class _SuccessScreenState extends State<SuccessScreen> {
     return Scaffold(
       body: Stack(
         children: [
-          // Expanded(
-          //   child: GoogleMap(
-          //     myLocationButtonEnabled: false,
-          //     zoomControlsEnabled: false,
-          //     mapType: MapType.normal,
-          //     initialCameraPosition: _kGooglePlex,
-          //     onMapCreated: (GoogleMapController controller) {
-          //       _controller.complete(controller);
-          //     },
-          //   ),
-          // ),
           DraggableScrollableSheet(
-            initialChildSize: 0.5,
-            maxChildSize: 0.6,
+            initialChildSize: 0.6,
+            maxChildSize: 0.8,
             minChildSize: 0.25,
             builder: (context, scrollController) {
               return StreamBuilder(
                 stream: _transaction.doc(widget.data).snapshots(),
                 builder: (BuildContext context,
                     AsyncSnapshot<DocumentSnapshot> snapshot) {
+                  if (snapshot.data!["status"] == "completed") {
+                    return Container(
+                      color: kPrimaryColor,
+                      padding: EdgeInsets.fromLTRB(20, 20, 20, 45),
+                      child: Column(
+                        children: [
+                          SizedBox(height: 12),
+                          Icon(
+                            Icons.mood,
+                            size: 80,
+                            color: kContentDarkTheme,
+                          ),
+                          Text(
+                            "Thanks for choosing us",
+                          ),
+                          Spacer(),
+                          ElevatedButton(
+                            onPressed: () {
+                              Navigator.pop(context, UserDashboard.id);
+                            },
+                            child: Container(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: const [
+                                  Text("Go back"),
+                                  SizedBox(
+                                    width: 24,
+                                  ),
+                                  Icon(Icons.cancel)
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  }
+                  if (snapshot.data!["status"] == "ongoing") {
+                    return Container(
+                      color: kPrimaryColor,
+                      padding: EdgeInsets.fromLTRB(20, 20, 20, 45),
+                      child: Column(
+                        children: [
+                          SizedBox(height: 12),
+                          const Text("Ongoing transaction"),
+                          const SizedBox(height: 12),
+                          Container(
+                            height: 1,
+                            width: 100,
+                            color: kContentDarkTheme,
+                          ),
+                          const SizedBox(height: 12),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Service",
+                                style: Theme.of(context).textTheme.bodyText1,
+                              ),
+                              Text(
+                                snapshot.data!["service"],
+                                style: Theme.of(context).textTheme.bodyText1,
+                              )
+                            ],
+                          ),
+                          const SizedBox(height: 12),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Carrier",
+                                style: Theme.of(context).textTheme.bodyText1,
+                              ),
+                              Text(
+                                snapshot.data!["carrier"],
+                                style: Theme.of(context).textTheme.bodyText1,
+                              )
+                            ],
+                          ),
+                          const SizedBox(height: 12),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Amount",
+                                style: Theme.of(context).textTheme.bodyText1,
+                              ),
+                              Text(
+                                snapshot.data!["amount"],
+                                style: Theme.of(context).textTheme.bodyText1,
+                              )
+                            ],
+                          ),
+                          const SizedBox(height: 24),
+                          StreamBuilder(
+                            stream: ttrips.doc(widget.data).snapshots(),
+                            builder:
+                                (BuildContext context, AsyncSnapshot snapshot) {
+                              if (!snapshot.hasData) {
+                                return Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: const [
+                                    Text('Connecting to nearby agent'),
+                                    CircularProgressIndicator(),
+                                  ],
+                                );
+                              }
+                              var userprofile = snapshot.data['agent'];
+                              return Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  Message(widget.data)));
+                                    },
+                                    child: CircleAvatar(
+                                      backgroundColor: kContentDarkTheme,
+                                      radius: 25,
+                                      child: Icon(
+                                        Icons.message,
+                                        color: kPrimaryColor,
+                                      ),
+                                    ),
+                                  ),
+                                  StreamBuilder(
+                                      stream: FirebaseFirestore.instance
+                                          .collection('user_profile')
+                                          .where('uiid', isEqualTo: userprofile)
+                                          .limit(1)
+                                          .snapshots(),
+                                      builder: (BuildContext context,
+                                          AsyncSnapshot snapshot) {
+                                        if (!snapshot.hasData) {
+                                          return CircularProgressIndicator();
+                                        }
+                                        var phonenumber =
+                                            snapshot.data!.docs.first;
+                                        return GestureDetector(
+                                          onTap: () {
+                                            print(phonenumber['phone_number']);
+                                            launch(
+                                                "tel:${phonenumber['phone_number']}");
+                                          },
+                                          child: const CircleAvatar(
+                                            backgroundColor: kContentDarkTheme,
+                                            radius: 25,
+                                            child: Icon(
+                                              Icons.phone,
+                                              color: kPrimaryColor,
+                                            ),
+                                          ),
+                                        );
+                                      }),
+                                ],
+                              );
+                            },
+                          ),
+                          const SizedBox(height: 24),
+                          const Text("Charges"),
+                          const SizedBox(height: 12),
+                          Container(
+                            height: 1,
+                            width: 100,
+                            color: kContentDarkTheme,
+                          ),
+                        ],
+                      ),
+                    );
+                  }
                   return Container(
                     color: kPrimaryColor,
                     padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
                     child: Column(
                       children: [
-                        SizedBox(height: 12),
-                        Text("Transaction Details"),
-                        SizedBox(height: 12),
+                        const SizedBox(height: 12),
+                        const Text("Transaction Details"),
+                        const SizedBox(height: 12),
                         Container(
                           height: 1,
                           width: 100,
                           color: kContentDarkTheme,
                         ),
-                        SizedBox(height: 12),
+                        const SizedBox(height: 12),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -106,7 +257,7 @@ class _SuccessScreenState extends State<SuccessScreen> {
                             )
                           ],
                         ),
-                        SizedBox(height: 12),
+                        const SizedBox(height: 12),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -120,7 +271,7 @@ class _SuccessScreenState extends State<SuccessScreen> {
                             )
                           ],
                         ),
-                        SizedBox(height: 12),
+                        const SizedBox(height: 12),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -134,96 +285,30 @@ class _SuccessScreenState extends State<SuccessScreen> {
                             )
                           ],
                         ),
-                        SizedBox(height: 24),
-                        //todo::check if its accepted
-                        StreamBuilder(
-                          stream: ttrips.doc(widget.data).snapshots(),
-                          builder:
-                              (BuildContext context, AsyncSnapshot snapshot) {
-                            if (!snapshot.hasData) {
-                              return Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: const [
-                                  Text('Connecting to nearby agent'),
-                                  CircularProgressIndicator(),
-                                ],
-                              );
-                            }
-                            var userprofile = snapshot.data['agent'];
-                            return Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                Message(widget.data)));
-                                  },
-                                  child: CircleAvatar(
-                                    backgroundColor: kContentDarkTheme,
-                                    radius: 25,
-                                    child: Icon(
-                                      Icons.message,
-                                      color: kPrimaryColor,
-                                    ),
-                                  ),
-                                ),
-                                StreamBuilder(
-                                    stream: FirebaseFirestore.instance
-                                        .collection('user_profile')
-                                        .where('uiid', isEqualTo: userprofile)
-                                        .limit(1)
-                                        .snapshots(),
-                                    builder: (BuildContext context,
-                                        AsyncSnapshot snapshot) {
-                                      if (!snapshot.hasData) {
-                                        return CircularProgressIndicator();
-                                      }
-                                      var phonenumber =
-                                          snapshot.data!.docs.first;
-                                      return GestureDetector(
-                                        onTap: () {
-                                          print(phonenumber['phone_number']);
-                                          launch(
-                                              "tel:${phonenumber['phone_number']}");
-                                        },
-                                        child: const CircleAvatar(
-                                          backgroundColor: kContentDarkTheme,
-                                          radius: 25,
-                                          child: Icon(
-                                            Icons.phone,
-                                            color: kPrimaryColor,
-                                          ),
-                                        ),
-                                      );
-                                    }),
-                              ],
-                            );
-                          },
-                        ),
-                        SizedBox(height: 24),
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            padding: EdgeInsets.all(10),
-                          ),
+                        const SizedBox(height: 24),
+                        TextButton(
+                          style: TextButton.styleFrom(
+                              padding: const EdgeInsets.all(8),
+                              backgroundColor: kSecondaryColor),
                           onPressed: () {
                             cancelTransaction();
                             Navigator.pop(context, UserDashboard.id);
                           },
-                          child: Expanded(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text("Cancell Transaction"),
-                                SizedBox(
-                                  width: 24,
-                                ),
-                                Icon(Icons.cancel)
-                              ],
-                            ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Cancell Transaction",
+                                style: Theme.of(context).textTheme.bodyText2,
+                              ),
+                              const Padding(
+                                  padding: EdgeInsets.fromLTRB(20, 0, 0, 0)),
+                              const Icon(
+                                Icons.cancel,
+                                color: kContentDarkTheme,
+                                size: 18,
+                              )
+                            ],
                           ),
                         ),
                       ],

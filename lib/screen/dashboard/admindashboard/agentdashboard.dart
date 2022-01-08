@@ -14,10 +14,10 @@ class AgentDashboard extends StatefulWidget {
 
 class _AgentDashboardState extends State<AgentDashboard> {
   int selectedIndex = 0;
-  List<Widget> _widgetoption = [
-    AdminDashboard(),
-    AdminActivities(),
-    AdminSettings()
+  final List<Widget> _widgetoption = [
+    const AdminDashboard(),
+    const AdminActivities(),
+    const AdminSettings()
   ];
 
   void _onItemTap(int index) {
