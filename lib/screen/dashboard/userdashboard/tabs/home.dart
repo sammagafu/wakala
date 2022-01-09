@@ -88,22 +88,27 @@ class _HomeState extends State<Home> {
                   ),
                 ),
               ),
-              Material(
-                borderRadius: BorderRadius.circular(10),
-                color: kSecondaryColor,
-                elevation: 5,
-                child: Container(
-                  padding: EdgeInsets.all(24),
-                  child: Column(
-                    children: [
-                      Text(
-                        "Make Deposit",
-                        style: Theme.of(context)
-                            .textTheme
-                            .headline5
-                            ?.copyWith(color: kContentColorLightTheme),
-                      ),
-                    ],
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, Deposit.id);
+                },
+                child: Material(
+                  borderRadius: BorderRadius.circular(10),
+                  color: kSecondaryColor,
+                  elevation: 5,
+                  child: Container(
+                    padding: EdgeInsets.all(24),
+                    child: Column(
+                      children: [
+                        Text(
+                          "Make Deposit",
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline5
+                              ?.copyWith(color: kContentColorLightTheme),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

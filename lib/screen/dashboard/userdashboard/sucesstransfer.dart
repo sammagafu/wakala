@@ -40,6 +40,28 @@ class _SuccessScreenState extends State<SuccessScreen> {
   final CollectionReference ttrips =
       FirebaseFirestore.instance.collection("transaction_trips");
 
+  _depositcharges(amount) {
+    if (amount < 20000) {
+      return 2000;
+    }
+    if (amount > 20000 && amount < 50000) {
+      return 3000;
+    } else {
+      return 4000;
+    }
+  }
+
+  _withdrawcharges(amount) {
+    if (amount < 20000) {
+      return 3000;
+    }
+    if (amount > 20000 && amount < 50000) {
+      return 5000;
+    } else {
+      return 6000;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     print(widget.data);
@@ -62,12 +84,12 @@ class _SuccessScreenState extends State<SuccessScreen> {
                       child: Column(
                         children: [
                           SizedBox(height: 12),
-                          Icon(
+                          const Icon(
                             Icons.mood,
                             size: 80,
                             color: kContentDarkTheme,
                           ),
-                          Text(
+                          const Text(
                             "Thanks for choosing us",
                           ),
                           Spacer(),
@@ -93,12 +115,13 @@ class _SuccessScreenState extends State<SuccessScreen> {
                     );
                   }
                   if (snapshot.data!["status"] == "ongoing") {
+                    var amount = snapshot.data!["amount"];
                     return Container(
                       color: kPrimaryColor,
                       padding: EdgeInsets.fromLTRB(20, 20, 20, 45),
                       child: Column(
                         children: [
-                          SizedBox(height: 12),
+                          const SizedBox(height: 12),
                           const Text("Ongoing transaction"),
                           const SizedBox(height: 12),
                           Container(
@@ -176,7 +199,7 @@ class _SuccessScreenState extends State<SuccessScreen> {
                                               builder: (context) =>
                                                   Message(widget.data)));
                                     },
-                                    child: CircleAvatar(
+                                    child: const CircleAvatar(
                                       backgroundColor: kContentDarkTheme,
                                       radius: 25,
                                       child: Icon(

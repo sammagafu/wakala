@@ -4,15 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:wakala/constants/constants.dart';
 import 'package:wakala/screen/welcomescreen/login.dart';
 
-class AdminSettings extends StatefulWidget {
-  const AdminSettings({Key? key}) : super(key: key);
+class Setting extends StatefulWidget {
+  const Setting({Key? key}) : super(key: key);
 
   @override
-  _AdminSettingsState createState() => _AdminSettingsState();
+  _SettingState createState() => _SettingState();
 }
 
-class _AdminSettingsState extends State<AdminSettings> {
-  final bool _isuser = false;
+class _SettingState extends State<Setting> {
+  final bool _isagent = false;
   final _userprofile = FirebaseFirestore.instance.collection("user_profile");
 
   Future<void> _signOut() async {
@@ -61,13 +61,13 @@ class _AdminSettingsState extends State<AdminSettings> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text("Switch to User"),
+                      const Text("Switch to Agent"),
                       Switch(
-                        value: _isuser,
+                        value: _isagent,
                         onChanged: (value) {
                           var _loginedUser = _userprofile
                               .doc(FirebaseAuth.instance.currentUser!.uid)
-                              .update({'is_agent': false, 'is_user': true});
+                              .update({'is_agent': true});
                           Navigator.pushNamed(context, LoginScreen.id);
                         },
                       ),

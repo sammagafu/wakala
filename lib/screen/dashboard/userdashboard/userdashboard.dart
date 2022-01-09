@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:wakala/constants/constants.dart';
 import 'package:wakala/screen/dashboard/userdashboard/tabs/deposit.dart';
 import 'package:wakala/screen/dashboard/userdashboard/tabs/home.dart';
+import 'package:wakala/screen/dashboard/userdashboard/tabs/settings.dart';
 import 'package:wakala/screen/dashboard/userdashboard/tabs/withdraw.dart';
 
 class UserDashboard extends StatefulWidget {
@@ -14,11 +15,12 @@ class UserDashboard extends StatefulWidget {
 
 class _UserDashboardState extends State<UserDashboard> {
   int selectedIndex = 0;
-  List<Widget> _widgetoption = [
+  final List<Widget> _widgetoption = [
     // Dashboard(),
     Home(),
     Deposit(),
     Withdraw(),
+    Setting()
   ];
 
   void _onItemTap(int index) {
@@ -46,6 +48,10 @@ class _UserDashboardState extends State<UserDashboard> {
           BottomNavigationBarItem(
             icon: Icon(Icons.arrow_circle_down),
             label: "Withdraw",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: "Setting",
           ),
         ],
         currentIndex: selectedIndex,

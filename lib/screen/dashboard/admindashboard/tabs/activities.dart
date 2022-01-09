@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:wakala/constants/constants.dart';
 
@@ -13,6 +14,7 @@ class _AdminActivitiesState extends State<AdminActivities> {
   final Stream<QuerySnapshot> _transaction = FirebaseFirestore.instance
       .collection('transaction')
       .where('is_completed', isEqualTo: true)
+      .where('agent', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
       .snapshots(includeMetadataChanges: true);
 
   @override

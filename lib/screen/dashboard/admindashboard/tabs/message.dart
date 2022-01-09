@@ -105,6 +105,7 @@ class _MessageState extends State<Message> {
                     suffixIcon: IconButton(
                       onPressed: () {
                         sendMessage();
+                        messageController.clear();
                       },
                       icon: Icon(
                         Icons.send,

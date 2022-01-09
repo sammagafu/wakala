@@ -144,12 +144,15 @@ class _LoginScreenState extends State<LoginScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text("Forgot your password ?"),
+                    const Text("Forgot your password ?"),
                     TextButton(
                       onPressed: () {},
                       child: Text(
                         "Reset Password",
-                        style: TextStyle(color: kErrorColor, fontSize: 18),
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyText2!
+                            .copyWith(color: kContentColorLightTheme),
                       ),
                     )
                   ],
@@ -157,14 +160,17 @@ class _LoginScreenState extends State<LoginScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text("Dont have an account?"),
+                    const Text("Dont have an account?"),
                     TextButton(
                       onPressed: () {
                         Navigator.pushNamed(context, CreateAccount.id);
                       },
                       child: Text(
                         "create account",
-                        style: TextStyle(color: kErrorColor, fontSize: 18),
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyText2!
+                            .copyWith(color: kContentColorLightTheme),
                       ),
                     )
                   ],

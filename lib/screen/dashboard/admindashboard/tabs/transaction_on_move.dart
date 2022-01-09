@@ -69,6 +69,19 @@ class _TransactionOnMoveState extends State<TransactionOnMove> {
                             snapshot.data.latitude,
                             snapshot.data.longitude);
                         print("the distance between is $distanceInMeters");
+                        final Marker _clientsLocation = Marker(
+                            markerId: MarkerId('_clientlocation'),
+                            infoWindow: InfoWindow(title: "Client's location"),
+                            icon: BitmapDescriptor.defaultMarkerWithHue(
+                                BitmapDescriptor.hueBlue),
+                            position: LatLng(latitude, longitude));
+                        final Marker _myLocation = Marker(
+                            markerId: MarkerId('_mylocation'),
+                            infoWindow: InfoWindow(title: "My Location"),
+                            icon: BitmapDescriptor.defaultMarkerWithHue(
+                                BitmapDescriptor.hueBlue),
+                            position: LatLng(snapshot.data.latitude,
+                                snapshot.data.longitude));
                         return Positioned.fill(
                           child: Opacity(
                             opacity: .9,
@@ -81,6 +94,7 @@ class _TransactionOnMoveState extends State<TransactionOnMove> {
                                 tilt: 59.440717697143555,
                                 zoom: 16,
                               ),
+                              markers: {_clientsLocation, _myLocation},
                             ),
                           ),
                         );
