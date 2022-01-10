@@ -25,7 +25,8 @@ class _MessageState extends State<Message> {
           .add({
             "message": messageController.text,
             "sender": FirebaseAuth.instance.currentUser!.uid,
-            "trip": widget.data
+            "trip": widget.data,
+            "textingtime": DateTime.now()
           })
           .then((value) => print(value))
           .catchError((error) => print("Failed to send message: $error"));
@@ -51,15 +52,17 @@ class _MessageState extends State<Message> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            SizedBox(
+            const SizedBox(
               height: 18,
             ),
             StreamBuilder<QuerySnapshot>(
-              stream:
-                  _message.where('trip', isEqualTo: widget.data).snapshots(),
+              stream: _message
+                  .where('trip', isEqualTo: widget.data)
+                  .orderBy("textingtime", descending: false)
+                  .snapshots(),
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {
-                  return Center(
+                  return const Center(
                     child: Text("No messages, start conversation"),
                   );
                 }
@@ -81,8 +84,8 @@ class _MessageState extends State<Message> {
                 return Expanded(
                   child: ListView(
                     reverse: true,
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 6.0, vertical: 4.0),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 6.0, vertical: 4.0),
                     children: messageBubbles,
                   ),
                 );
@@ -107,13 +110,13 @@ class _MessageState extends State<Message> {
                         sendMessage();
                         messageController.clear();
                       },
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.send,
                         color: kPrimaryColor,
                       ),
                     ),
                   ),
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 14.0,
                     color: Colors.black54,
                   ),
@@ -144,18 +147,18 @@ class MessageBubble extends StatelessWidget {
         children: <Widget>[
           Text(
             sender,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 12.0,
               color: Colors.black54,
             ),
           ),
           Material(
             borderRadius: isMe
-                ? BorderRadius.only(
+                ? const BorderRadius.only(
                     topLeft: Radius.circular(30.0),
                     bottomLeft: Radius.circular(30.0),
                     bottomRight: Radius.circular(30.0))
-                : BorderRadius.only(
+                : const BorderRadius.only(
                     bottomLeft: Radius.circular(30.0),
                     bottomRight: Radius.circular(30.0),
                     topRight: Radius.circular(30.0),
@@ -163,7 +166,8 @@ class MessageBubble extends StatelessWidget {
             elevation: 5.0,
             color: isMe ? kPrimaryColor : kSecondaryColor,
             child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+              padding:
+                  const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
               child: Text(
                 text,
                 style: TextStyle(

@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:wakala/screen/dashboard/admindashboard/agentdashboard.dart';
 import 'package:wakala/screen/dashboard/admindashboard/tabs/message.dart';
 import 'package:wakala/screen/dashboard/userdashboard/tabs/deposit.dart';

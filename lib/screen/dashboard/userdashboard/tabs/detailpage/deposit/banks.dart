@@ -138,7 +138,7 @@ class _WithdrawBankState extends State<WithdrawBank> {
             "carrier": widget.banks.name,
             "is_active": true,
             "is_completed": false,
-            "request_time": Timestamp.now(),
+            "request_time": DateTime.now(),
             "service": "deposit",
             "user": _auth!.uid,
             "status": "started",
