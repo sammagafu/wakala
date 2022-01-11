@@ -17,7 +17,7 @@ class AdminDashboard extends StatefulWidget {
 class _AdminDashboardState extends State<AdminDashboard> {
   @override
   late var requestingUser;
-
+  final _currentUserProfile = FirebaseAuth.instance.currentUser?.displayName;
   final Stream<QuerySnapshot> _transaction = FirebaseFirestore.instance
       .collection('transaction')
       .where("is_active", isEqualTo: true)
@@ -25,6 +25,117 @@ class _AdminDashboardState extends State<AdminDashboard> {
       .where("status", isEqualTo: "started")
       .limit(1)
       .snapshots(includeMetadataChanges: true);
+
+  showWithdrawrates(amount) {
+    if (amount < 20000) {
+      return Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Charges",
+                style: Theme.of(context).textTheme.bodyText1,
+              ),
+              Text(
+                "3000",
+                style: Theme.of(context).textTheme.bodyText1,
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Withraw Charges",
+                style: Theme.of(context).textTheme.bodyText1,
+              ),
+              Text(
+                "3000",
+                style: Theme.of(context).textTheme.bodyText1,
+              ),
+            ],
+          ),
+        ],
+      );
+    }
+    if (amount > 20000 && amount < 50000) {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            "Withdraw Charges",
+            style: Theme.of(context).textTheme.bodyText1,
+          ),
+          Text(
+            "5000",
+            style: Theme.of(context).textTheme.bodyText1,
+          ),
+        ],
+      );
+    } else {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            "Withdraw Charges",
+            style: Theme.of(context).textTheme.bodyText1,
+          ),
+          Text(
+            "6000",
+            style: Theme.of(context).textTheme.bodyText1,
+          ),
+        ],
+      );
+    }
+  }
+
+  showDepositrates(amount) {
+    if (amount < 20000) {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            "Deposit Charges",
+            style: Theme.of(context).textTheme.bodyText1,
+          ),
+          Text(
+            "2000",
+            style: Theme.of(context).textTheme.bodyText1,
+          ),
+        ],
+      );
+    }
+    if (amount > 20000 && amount < 50000) {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            "Deposit Charges",
+            style: Theme.of(context).textTheme.bodyText1,
+          ),
+          Text(
+            "3000",
+            style: Theme.of(context).textTheme.bodyText1,
+          ),
+        ],
+      );
+    } else {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            "Deposit Charges",
+            style: Theme.of(context).textTheme.bodyText1,
+          ),
+          Text(
+            "4000",
+            style: Theme.of(context).textTheme.bodyText1,
+          ),
+        ],
+      );
+    }
+  }
 
   final CollectionReference ttrips =
       FirebaseFirestore.instance.collection("transaction_trips");
@@ -38,15 +149,71 @@ class _AdminDashboardState extends State<AdminDashboard> {
               (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (snapshot.hasData) {
               if (snapshot.data!.docs.isEmpty) {
-                return Center(
+                return Padding(
+                  padding: EdgeInsets.fromLTRB(24, 88, 24, 48),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: const [
-                      CircularProgressIndicator(),
-                      Text(
-                        "Looking for clients please wait",
-                        style: TextStyle(color: kPrimaryColor),
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: Text(
+                          "Welcome",
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline2!
+                              .copyWith(color: Colors.black),
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: Row(
+                          children: [
+                            Text(
+                              "$_currentUserProfile",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline5!
+                                  .copyWith(color: Colors.black),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 6,
+                      ),
+                      Container(
+                        height: 1,
+                        color: kPrimaryColor,
+                        width: MediaQuery.of(context).size.width * .5,
+                      ),
+                      const SizedBox(
+                        height: 18,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Switch to agent account",
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText2!
+                                .copyWith(color: Colors.black),
+                          ),
+                          Switch(
+                            onChanged: (bool value) {},
+                            value: false,
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 150),
+                      // Center(child: CircularProgressIndicator()),
+                      Center(
+                        child: Text(
+                          "Looking for clients please wait...",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: kPrimaryColor),
+                        ),
                       ),
                     ],
                   ),
@@ -55,9 +222,9 @@ class _AdminDashboardState extends State<AdminDashboard> {
               var _transactionData = snapshot.data!.docs.first;
               var _requestingUser = _transactionData["user"];
               return DraggableScrollableSheet(
-                  initialChildSize: 0.45,
-                  minChildSize: 0.13,
-                  maxChildSize: 0.9,
+                  initialChildSize: 0.6,
+                  maxChildSize: 0.8,
+                  minChildSize: 0.25,
                   builder:
                       (BuildContext buildContext, ScrollController controller) {
                     FlutterRingtonePlayer.play(
@@ -78,6 +245,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                           const SizedBox(
                             height: 24,
                           ),
+                          Separator(),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -85,9 +253,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                               Text(_transactionData["carrier"]),
                             ],
                           ),
-                          const SizedBox(
-                            height: 12,
-                          ),
+                          Separator(),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -95,9 +261,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                               Text(_transactionData["service"]),
                             ],
                           ),
-                          const SizedBox(
-                            height: 12,
-                          ),
+                          Separator(),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -105,6 +269,12 @@ class _AdminDashboardState extends State<AdminDashboard> {
                               Text(_transactionData["amount"]),
                             ],
                           ),
+                          Separator(),
+                          _transactionData["service"] == "withdraw"
+                              ? showWithdrawrates(
+                                  double.parse(_transactionData["amount"]))
+                              : showDepositrates(
+                                  double.parse(_transactionData["amount"])),
                           const Spacer(),
                           TextButton(
                             onPressed: () {
@@ -160,6 +330,28 @@ class _AdminDashboardState extends State<AdminDashboard> {
               return const Center(child: CircularProgressIndicator());
             }
           }),
+    );
+  }
+}
+
+class Separator extends StatelessWidget {
+  const Separator({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        const SizedBox(
+          height: 12,
+        ),
+        Container(
+          height: .5,
+          color: kContentDarkTheme,
+        ),
+        const SizedBox(
+          height: 12,
+        ),
+      ],
     );
   }
 }

@@ -12,7 +12,7 @@ class Setting extends StatefulWidget {
 }
 
 class _SettingState extends State<Setting> {
-  final bool _isagent = false;
+  bool _isagent = false;
   final _userprofile = FirebaseFirestore.instance.collection("user_profile");
 
   Future<void> _signOut() async {
@@ -46,6 +46,33 @@ class _SettingState extends State<Setting> {
                     .textTheme
                     .bodyText2!
                     .copyWith(color: kPrimaryColor),
+              ),
+              const SizedBox(
+                height: 24,
+              ),
+              Container(
+                height: MediaQuery.of(context).size.width * .14,
+                width: MediaQuery.of(context).size.width * 1,
+                decoration: const BoxDecoration(
+                    color: Colors.grey,
+                    borderRadius: BorderRadius.all(Radius.circular(5))),
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(40, 5, 20, 5),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text("Go Offline"),
+                      Switch(
+                        value: _isagent,
+                        onChanged: (value) {
+                          setState(() {
+                            _isagent = true;
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                ),
               ),
               const SizedBox(
                 height: 24,

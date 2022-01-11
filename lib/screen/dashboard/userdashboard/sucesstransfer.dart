@@ -40,19 +40,36 @@ class _SuccessScreenState extends State<SuccessScreen> {
 
   final CollectionReference ttrips =
       FirebaseFirestore.instance.collection("transaction_trips");
-
+  final chargers = 0;
   showWithdrawrates(amount) {
     if (amount < 20000) {
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      return Column(
         children: [
-          Text(
-            "Charges",
-            style: Theme.of(context).textTheme.bodyText1,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Charges",
+                style: Theme.of(context).textTheme.bodyText1,
+              ),
+              Text(
+                "3000",
+                style: Theme.of(context).textTheme.bodyText1,
+              ),
+            ],
           ),
-          Text(
-            "3000",
-            style: Theme.of(context).textTheme.bodyText1,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Withraw Charges",
+                style: Theme.of(context).textTheme.bodyText1,
+              ),
+              Text(
+                "3000",
+                style: Theme.of(context).textTheme.bodyText1,
+              ),
+            ],
           ),
         ],
       );
@@ -62,7 +79,7 @@ class _SuccessScreenState extends State<SuccessScreen> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            "Charges",
+            "Withdraw Charges",
             style: Theme.of(context).textTheme.bodyText1,
           ),
           Text(
@@ -76,7 +93,7 @@ class _SuccessScreenState extends State<SuccessScreen> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            "Charges",
+            "Withdraw Charges",
             style: Theme.of(context).textTheme.bodyText1,
           ),
           Text(
@@ -94,7 +111,7 @@ class _SuccessScreenState extends State<SuccessScreen> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            "Charges",
+            "Deposit Charges",
             style: Theme.of(context).textTheme.bodyText1,
           ),
           Text(
@@ -109,7 +126,7 @@ class _SuccessScreenState extends State<SuccessScreen> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            "Charges",
+            "Deposit Charges",
             style: Theme.of(context).textTheme.bodyText1,
           ),
           Text(
@@ -123,7 +140,7 @@ class _SuccessScreenState extends State<SuccessScreen> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            "Charges",
+            "Deposit Charges",
             style: Theme.of(context).textTheme.bodyText1,
           ),
           Text(
@@ -311,7 +328,6 @@ class _SuccessScreenState extends State<SuccessScreen> {
                                             snapshot.data!.docs.first;
                                         return GestureDetector(
                                           onTap: () {
-                                            print(phonenumber['phone_number']);
                                             launch(
                                                 "tel:${phonenumber['phone_number']}");
                                           },
@@ -337,8 +353,12 @@ class _SuccessScreenState extends State<SuccessScreen> {
                             width: 100,
                             color: kContentDarkTheme,
                           ),
-                          showWithdrawrates(
-                              double.parse(snapshot.data!["amount"])),
+                          const SizedBox(height: 24),
+                          snapshot.data!["service"] == "withdraw"
+                              ? showWithdrawrates(
+                                  double.parse(snapshot.data!["amount"]))
+                              : showDepositrates(
+                                  double.parse(snapshot.data!["amount"])),
                           const SizedBox(height: 24),
                         ],
                       ),
@@ -407,8 +427,12 @@ class _SuccessScreenState extends State<SuccessScreen> {
                           width: 100,
                           color: kContentDarkTheme,
                         ),
-                        showWithdrawrates(
-                            double.parse(snapshot.data!["amount"])),
+                        const SizedBox(height: 24),
+                        snapshot.data!["service"] == "withdraw"
+                            ? showWithdrawrates(
+                                double.parse(snapshot.data!["amount"]))
+                            : showDepositrates(
+                                double.parse(snapshot.data!["amount"])),
                         const SizedBox(height: 24),
                         TextButton(
                           style: TextButton.styleFrom(

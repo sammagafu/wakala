@@ -6,6 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:wakala/constants/constants.dart';
 import 'package:wakala/screen/dashboard/userdashboard/tabs/withdraw.dart';
 import 'package:wakala/screen/dashboard/userdashboard/tabs/deposit.dart';
+import 'package:wakala/screen/welcomescreen/login.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -18,10 +19,10 @@ class _HomeState extends State<Home> {
   final _auth = FirebaseAuth.instance.currentUser;
   final _database = FirebaseFirestore.instance;
   final _db = FirebaseFirestore.instance.collection("transaction");
+  final bool _isuser = false;
+  final _userprofile = FirebaseFirestore.instance.collection("user_profile");
   var _currentUserProfile = '';
-  var _currentDeposit = '';
-  var _currentWithdraw = '';
-  String _service = '';
+
   late Future<String?> userToken;
 
   Future<void> getUserProfile() async {
@@ -81,11 +82,14 @@ class _HomeState extends State<Home> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text("Switch to agent account"),
+              const Text("Switch to User account"),
               Switch(
-                onChanged: (bool value) {},
-                value: false,
-              ),
+                  value: _isuser,
+                  onChanged: (value) {
+                    var _loginedUser =
+                        _userprofile.doc(_auth!.uid).update({'is_agent': true});
+                    Navigator.pushNamed(context, LoginScreen.id);
+                  }),
             ],
           ),
           const SizedBox(height: 65),
@@ -150,9 +154,7 @@ class _HomeState extends State<Home> {
                   .snapshots(),
               builder: (BuildContext context,
                   AsyncSnapshot<QuerySnapshot> snapshot) {
-                if (snapshot.hasError) {
-                  print(snapshot.error);
-                }
+                if (snapshot.hasError) {}
                 if (snapshot.hasData) {
                   return ListView.builder(
                       itemCount: snapshot.data!.docs.length,
