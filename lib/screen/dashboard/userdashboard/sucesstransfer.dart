@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:smooth_star_rating_null_safety/smooth_star_rating_null_safety.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:wakala/constants/constants.dart';
 import 'package:wakala/screen/dashboard/admindashboard/tabs/message.dart';
@@ -13,6 +14,7 @@ enum TransactionStatus { Cancelled, Ongoing, Finished }
 
 class SuccessScreen extends StatefulWidget {
   final data;
+
   const SuccessScreen(this.data);
 
   @override
@@ -21,10 +23,9 @@ class SuccessScreen extends StatefulWidget {
 
 class _SuccessScreenState extends State<SuccessScreen> {
   PageController controller = PageController();
-
   final CollectionReference _transaction =
       FirebaseFirestore.instance.collection('transaction');
-
+  double rating = 0;
   Future<void> cancelTransaction() {
     return _transaction
         .doc(widget.data)
@@ -40,31 +41,102 @@ class _SuccessScreenState extends State<SuccessScreen> {
   final CollectionReference ttrips =
       FirebaseFirestore.instance.collection("transaction_trips");
 
-  _depositcharges(amount) {
+  showWithdrawrates(amount) {
     if (amount < 20000) {
-      return 2000;
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            "Charges",
+            style: Theme.of(context).textTheme.bodyText1,
+          ),
+          Text(
+            "3000",
+            style: Theme.of(context).textTheme.bodyText1,
+          ),
+        ],
+      );
     }
     if (amount > 20000 && amount < 50000) {
-      return 3000;
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            "Charges",
+            style: Theme.of(context).textTheme.bodyText1,
+          ),
+          Text(
+            "5000",
+            style: Theme.of(context).textTheme.bodyText1,
+          ),
+        ],
+      );
     } else {
-      return 4000;
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            "Charges",
+            style: Theme.of(context).textTheme.bodyText1,
+          ),
+          Text(
+            "6000",
+            style: Theme.of(context).textTheme.bodyText1,
+          ),
+        ],
+      );
     }
   }
 
-  _withdrawcharges(amount) {
+  showDepositrates(amount) {
     if (amount < 20000) {
-      return 3000;
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            "Charges",
+            style: Theme.of(context).textTheme.bodyText1,
+          ),
+          Text(
+            "2000",
+            style: Theme.of(context).textTheme.bodyText1,
+          ),
+        ],
+      );
     }
     if (amount > 20000 && amount < 50000) {
-      return 5000;
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            "Charges",
+            style: Theme.of(context).textTheme.bodyText1,
+          ),
+          Text(
+            "3000",
+            style: Theme.of(context).textTheme.bodyText1,
+          ),
+        ],
+      );
     } else {
-      return 6000;
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            "Charges",
+            style: Theme.of(context).textTheme.bodyText1,
+          ),
+          Text(
+            "4000",
+            style: Theme.of(context).textTheme.bodyText1,
+          ),
+        ],
+      );
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    print(widget.data);
     return Scaffold(
       body: Stack(
         children: [
@@ -90,24 +162,40 @@ class _SuccessScreenState extends State<SuccessScreen> {
                             color: kContentDarkTheme,
                           ),
                           const Text(
-                            "Thanks for choosing us",
+                            "Thanks for choosing us, Please rate the service",
+                            textAlign: TextAlign.center,
                           ),
+                          SizedBox(height: 42),
+                          SmoothStarRating(
+                              size: 40,
+                              rating: rating,
+                              halfFilledIconData: Icons.star_half,
+                              filledIconData: Icons.star,
+                              defaultIconData: Icons.star_border,
+                              starCount: 5,
+                              borderColor: kWarningColor,
+                              color: kWarningColor,
+                              allowHalfRating: false,
+                              spacing: 2.0,
+                              onRatingChanged: (value) {
+                                setState(() {
+                                  rating = value;
+                                });
+                              }),
                           Spacer(),
                           ElevatedButton(
                             onPressed: () {
                               Navigator.pop(context, UserDashboard.id);
                             },
-                            child: Container(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: const [
-                                  Text("Go back"),
-                                  SizedBox(
-                                    width: 24,
-                                  ),
-                                  Icon(Icons.cancel)
-                                ],
-                              ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: const [
+                                Text("Go back"),
+                                SizedBox(
+                                  width: 24,
+                                ),
+                                Icon(Icons.cancel)
+                              ],
                             ),
                           ),
                         ],
@@ -249,6 +337,9 @@ class _SuccessScreenState extends State<SuccessScreen> {
                             width: 100,
                             color: kContentDarkTheme,
                           ),
+                          showWithdrawrates(
+                              double.parse(snapshot.data!["amount"])),
+                          const SizedBox(height: 24),
                         ],
                       ),
                     );
@@ -308,6 +399,16 @@ class _SuccessScreenState extends State<SuccessScreen> {
                             )
                           ],
                         ),
+                        const SizedBox(height: 24),
+                        const Text("Charges"),
+                        const SizedBox(height: 12),
+                        Container(
+                          height: 1,
+                          width: 100,
+                          color: kContentDarkTheme,
+                        ),
+                        showWithdrawrates(
+                            double.parse(snapshot.data!["amount"])),
                         const SizedBox(height: 24),
                         TextButton(
                           style: TextButton.styleFrom(

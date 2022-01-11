@@ -17,10 +17,10 @@ class _UserDashboardState extends State<UserDashboard> {
   int selectedIndex = 0;
   final List<Widget> _widgetoption = [
     // Dashboard(),
-    Home(),
-    Deposit(),
-    Withdraw(),
-    Setting()
+    const Home(),
+    const Deposit(),
+    const Withdraw(),
+    const Setting()
   ];
 
   void _onItemTap(int index) {

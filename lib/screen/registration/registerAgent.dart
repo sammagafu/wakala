@@ -59,7 +59,7 @@ class _RegisterUserAgentState extends State<RegisterUserAgent> {
                     return null;
                   },
                   onSaved: (value) {},
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     prefixIcon: Icon(
                       Icons.person,
                       color: kContentDarkTheme,
@@ -80,7 +80,7 @@ class _RegisterUserAgentState extends State<RegisterUserAgent> {
                     ),
                   ),
                 ),
-                SizedBox(height: 32),
+                const SizedBox(height: 32),
                 TextFormField(
                   controller: emailController,
                   keyboardType: TextInputType.emailAddress,
@@ -94,7 +94,7 @@ class _RegisterUserAgentState extends State<RegisterUserAgent> {
                     }
                     return null;
                   },
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     prefixIcon: Icon(
                       Icons.email_sharp,
                       color: kContentDarkTheme,
@@ -129,7 +129,7 @@ class _RegisterUserAgentState extends State<RegisterUserAgent> {
                     }
                     return null;
                   },
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     prefixIcon: Icon(
                       Icons.phone,
                       color: kContentDarkTheme,
@@ -165,7 +165,7 @@ class _RegisterUserAgentState extends State<RegisterUserAgent> {
                   },
                   onSaved: (value) {},
                   obscureText: true,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     prefixIcon: Icon(
                       Icons.password,
                       color: kContentDarkTheme,
@@ -203,7 +203,7 @@ class _RegisterUserAgentState extends State<RegisterUserAgent> {
                   },
                   onSaved: (value) {},
                   obscureText: true,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     prefixIcon: Icon(
                       Icons.password,
                       color: kContentDarkTheme,
@@ -224,7 +224,7 @@ class _RegisterUserAgentState extends State<RegisterUserAgent> {
                     ),
                   ),
                 ),
-                SizedBox(height: 32),
+                const SizedBox(height: 32),
                 Text(errorMessage,
                     style: Theme.of(context)
                         .textTheme
@@ -238,13 +238,13 @@ class _RegisterUserAgentState extends State<RegisterUserAgent> {
                       margin: EdgeInsets.only(top: 12),
                       padding: EdgeInsets.all(25),
                       onPressed: createUserAgent,
-                      style: NeumorphicStyle(
+                      style: const NeumorphicStyle(
                         lightSource: LightSource.topLeft,
                         shape: NeumorphicShape.flat,
                         boxShape: NeumorphicBoxShape.circle(),
                         color: kPrimaryColor,
                       ),
-                      child: Icon(
+                      child: const Icon(
                         Icons.arrow_forward,
                         color: kContentDarkTheme,
                       ),
@@ -266,7 +266,7 @@ class _RegisterUserAgentState extends State<RegisterUserAgent> {
                         style: Theme.of(context).textTheme.headline5,
                       ),
                       Padding(padding: EdgeInsets.fromLTRB(20, 0, 0, 0)),
-                      Icon(
+                      const Icon(
                         Icons.arrow_forward_ios_rounded,
                         color: kContentDarkTheme,
                         size: 16,
@@ -282,7 +282,6 @@ class _RegisterUserAgentState extends State<RegisterUserAgent> {
     );
   }
 
-  //TODO::Add profile capability
   Future<void> createUserAgent() async {
     final _formstate = _formKey.currentState;
     if (_formstate!.validate()) {

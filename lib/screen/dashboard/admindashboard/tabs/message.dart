@@ -34,12 +34,6 @@ class _MessageState extends State<Message> {
   }
 
   @override
-  void dispose() {
-    messageController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -58,7 +52,7 @@ class _MessageState extends State<Message> {
             StreamBuilder<QuerySnapshot>(
               stream: _message
                   .where('trip', isEqualTo: widget.data)
-                  .orderBy("textingtime", descending: false)
+                  .orderBy("textingtime", descending: true)
                   .snapshots(),
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {

@@ -32,7 +32,7 @@ class _WithdrawBankState extends State<WithdrawBank> {
       appBar: AppBar(
         backgroundColor: kPrimaryColor,
         elevation: 0,
-        title: new Text("Deposit to ${widget.banks.name} Agent".toLowerCase()),
+        title: Text("Deposit to ${widget.banks.name} Agent".toLowerCase()),
       ),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(15, 100, 15, 80),
@@ -73,7 +73,7 @@ class _WithdrawBankState extends State<WithdrawBank> {
                 },
               ),
               SizedBox(height: 24),
-              Text("The maximum withdraw is TZS 200,000"),
+              Text("The maximum withdraw is TZS 100,000"),
               SizedBox(height: 24),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

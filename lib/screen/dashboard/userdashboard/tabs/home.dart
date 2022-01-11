@@ -58,12 +58,37 @@ class _HomeState extends State<Home> {
           ),
           Align(
             alignment: Alignment.topLeft,
-            child: Text(
-              "$_currentUserProfile",
-              style: Theme.of(context).textTheme.headline5,
+            child: Row(
+              children: [
+                Text(
+                  "$_currentUserProfile",
+                  style: Theme.of(context).textTheme.headline5,
+                ),
+              ],
             ),
           ),
-          SizedBox(height: 65),
+          const SizedBox(
+            height: 6,
+          ),
+          Container(
+            height: 1,
+            color: kContentDarkTheme,
+            width: MediaQuery.of(context).size.width * .5,
+          ),
+          const SizedBox(
+            height: 18,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text("Switch to agent account"),
+              Switch(
+                onChanged: (bool value) {},
+                value: false,
+              ),
+            ],
+          ),
+          const SizedBox(height: 65),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -114,17 +139,20 @@ class _HomeState extends State<Home> {
               ),
             ],
           ),
-          SizedBox(height: 24),
+          const SizedBox(height: 24),
           const Text("My last activities"),
           Expanded(
             child: StreamBuilder<QuerySnapshot>(
-              stream: FirebaseFirestore.instance
-                  .collection("transaction")
+              stream: _db
                   .where("user", isEqualTo: _auth?.uid)
+                  .orderBy("request_time", descending: false)
                   .limit(8)
                   .snapshots(),
               builder: (BuildContext context,
                   AsyncSnapshot<QuerySnapshot> snapshot) {
+                if (snapshot.hasError) {
+                  print(snapshot.error);
+                }
                 if (snapshot.hasData) {
                   return ListView.builder(
                       itemCount: snapshot.data!.docs.length,
@@ -167,7 +195,7 @@ class _HomeState extends State<Home> {
                       });
                 } else {
                   return const Center(
-                    child: CircularProgressIndicator(),
+                    child: Text("No recent activities"),
                   );
                 }
               },

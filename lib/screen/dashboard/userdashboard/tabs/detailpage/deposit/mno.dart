@@ -1,12 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:wakala/constants/constants.dart';
 import 'package:wakala/screen/dashboard/userdashboard/sucesstransfer.dart';
-
-enum TransactionStatus { Cancelled, Ongoing, Finished }
 
 class WithdrawDetail extends StatefulWidget {
   final mno;
@@ -36,7 +33,7 @@ class _WithdrawDetailState extends State<WithdrawDetail> {
         appBar: AppBar(
           backgroundColor: kPrimaryColor,
           elevation: 0,
-          title: new Text("Deposit ${widget.mno.name} Agent".toLowerCase()),
+          title: Text("Deposit ${widget.mno.name} Agent".toLowerCase()),
         ),
         body: Padding(
           padding: const EdgeInsets.fromLTRB(15, 100, 15, 80),
@@ -49,7 +46,7 @@ class _WithdrawDetailState extends State<WithdrawDetail> {
                 TextFormField(
                   controller: amountController,
                   keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     prefixIcon: Icon(
                       Icons.money,
                       color: kContentDarkTheme,
@@ -76,24 +73,24 @@ class _WithdrawDetailState extends State<WithdrawDetail> {
                     if (value.length > 6) {}
                   },
                 ),
-                SizedBox(height: 24),
-                Text("The maximum withdraw is TZS 200,000"),
-                SizedBox(height: 24),
+                const SizedBox(height: 24),
+                const Text("The maximum withdraw is TZS 100,000"),
+                const SizedBox(height: 24),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("Complete deposit"),
+                    const Text("Complete deposit"),
                     NeumorphicButton(
-                      margin: EdgeInsets.only(top: 12),
+                      margin: const EdgeInsets.only(top: 12),
                       padding: EdgeInsets.all(25),
                       onPressed: deposit,
-                      style: NeumorphicStyle(
+                      style: const NeumorphicStyle(
                         lightSource: LightSource.topLeft,
                         shape: NeumorphicShape.flat,
                         boxShape: NeumorphicBoxShape.circle(),
                         color: kPrimaryColor,
                       ),
-                      child: Icon(
+                      child: const Icon(
                         Icons.arrow_forward,
                         color: kContentDarkTheme,
                       ),

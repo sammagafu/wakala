@@ -33,7 +33,7 @@ class _WithdrawBankState extends State<WithdrawBank> {
       appBar: AppBar(
         backgroundColor: kPrimaryColor,
         elevation: 0,
-        title: new Text("Withdraw ${widget.banks.name} Agent".toLowerCase()),
+        title: Text("Withdraw ${widget.banks.name} Agent".toLowerCase()),
       ),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(15, 100, 15, 80),
@@ -46,7 +46,7 @@ class _WithdrawBankState extends State<WithdrawBank> {
               TextFormField(
                 controller: amountController,
                 keyboardType: TextInputType.number,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   prefixIcon: Icon(
                     Icons.money,
                     color: kContentDarkTheme,
@@ -73,24 +73,24 @@ class _WithdrawBankState extends State<WithdrawBank> {
                   if (value.length > 6) {}
                 },
               ),
-              SizedBox(height: 24),
-              Text("The maximum withdraw is TZS 200,000"),
-              SizedBox(height: 24),
+              const SizedBox(height: 24),
+              const Text("The maximum withdraw is TZS 100,000"),
+              const SizedBox(height: 24),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("Complete withdraw"),
+                  const Text("Complete withdraw"),
                   NeumorphicButton(
                     margin: EdgeInsets.only(top: 12),
                     padding: EdgeInsets.all(25),
                     onPressed: withdraw,
-                    style: NeumorphicStyle(
+                    style: const NeumorphicStyle(
                       lightSource: LightSource.topLeft,
                       shape: NeumorphicShape.flat,
                       boxShape: NeumorphicBoxShape.circle(),
                       color: kPrimaryColor,
                     ),
-                    child: Icon(
+                    child: const Icon(
                       Icons.arrow_forward,
                       color: kContentDarkTheme,
                     ),

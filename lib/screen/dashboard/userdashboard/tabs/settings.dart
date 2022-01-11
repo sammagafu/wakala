@@ -50,34 +50,6 @@ class _SettingState extends State<Setting> {
               const SizedBox(
                 height: 24,
               ),
-              Container(
-                height: MediaQuery.of(context).size.width * .14,
-                width: MediaQuery.of(context).size.width * 1,
-                decoration: const BoxDecoration(
-                    color: Colors.grey,
-                    borderRadius: BorderRadius.all(Radius.circular(5))),
-                child: Padding(
-                  padding: EdgeInsets.fromLTRB(40, 5, 20, 5),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text("Switch to Agent"),
-                      Switch(
-                        value: _isagent,
-                        onChanged: (value) {
-                          var _loginedUser = _userprofile
-                              .doc(FirebaseAuth.instance.currentUser!.uid)
-                              .update({'is_agent': true});
-                          Navigator.pushNamed(context, LoginScreen.id);
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 24,
-              ),
               TextButton(
                 onPressed: () {},
                 style: TextButton.styleFrom(
@@ -91,7 +63,7 @@ class _SettingState extends State<Setting> {
                       "Update Profile",
                       style: Theme.of(context).textTheme.bodyText2,
                     ),
-                    Icon(
+                    const Icon(
                       Icons.arrow_forward_ios,
                       color: kContentDarkTheme,
                     )
@@ -105,7 +77,7 @@ class _SettingState extends State<Setting> {
                 onPressed: () {},
                 style: TextButton.styleFrom(
                   backgroundColor: Colors.grey,
-                  padding: EdgeInsets.fromLTRB(40, 15, 20, 15),
+                  padding: const EdgeInsets.fromLTRB(40, 15, 20, 15),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -114,19 +86,19 @@ class _SettingState extends State<Setting> {
                       "Change Password",
                       style: Theme.of(context).textTheme.bodyText2,
                     ),
-                    Icon(
+                    const Icon(
                       Icons.arrow_forward_ios,
                       color: kContentDarkTheme,
                     )
                   ],
                 ),
               ),
-              Spacer(),
+              const Spacer(),
               TextButton(
                 onPressed: _signOut,
                 style: TextButton.styleFrom(
                   backgroundColor: Colors.grey,
-                  padding: EdgeInsets.fromLTRB(40, 15, 20, 15),
+                  padding: const EdgeInsets.fromLTRB(40, 15, 20, 15),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -138,7 +110,7 @@ class _SettingState extends State<Setting> {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 34,
               )
             ],

@@ -151,7 +151,7 @@ class _TransactionOnMoveState extends State<TransactionOnMove> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(bottom: 40.0),
+                    padding: const EdgeInsets.fromLTRB(25, 0, 25, 50),
                     child: Align(
                         alignment: AlignmentDirectional.bottomCenter,
                         child: TextButton(
@@ -167,9 +167,18 @@ class _TransactionOnMoveState extends State<TransactionOnMove> {
                             });
                             Navigator.pushNamed(context, AgentDashboard.id);
                           },
-                          child: Text(
-                            "Finish Transaction",
-                            style: Theme.of(context).textTheme.bodyText2,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Finish Transaction",
+                                style: Theme.of(context).textTheme.bodyText2,
+                              ),
+                              const Icon(
+                                Icons.assignment_turned_in_rounded,
+                                color: kContentDarkTheme,
+                              )
+                            ],
                           ),
                         )),
                   ),

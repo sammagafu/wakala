@@ -15,6 +15,7 @@ class _AdminActivitiesState extends State<AdminActivities> {
       .collection('transaction')
       .where('is_completed', isEqualTo: true)
       .where('agent', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+      .orderBy("request_time", descending: false)
       .snapshots(includeMetadataChanges: true);
 
   @override
@@ -39,6 +40,7 @@ class _AdminActivitiesState extends State<AdminActivities> {
               builder: (BuildContext context,
                   AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (snapshot.hasError) {
+                  print(snapshot.error);
                   return Text('Something went wrong');
                 }
 
