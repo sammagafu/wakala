@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wakala/constants/constants.dart';
-import 'package:wakala/model/banks.dart';
 import 'package:wakala/screen/dashboard/userdashboard/tabs/detailpage/deposit/banks.dart';
+import 'package:wakala/servicesProvided/banks.dart';
 
 class BanksWidget extends StatefulWidget {
   const BanksWidget({Key? key}) : super(key: key);
@@ -15,22 +15,25 @@ class _BanksWidgetState extends State<BanksWidget> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(height: 18),
+        const SizedBox(height: 45),
         Align(
           alignment: Alignment.topLeft,
           child: Text(
             "Banks",
-            style: Theme.of(context).textTheme.bodyText1,
+            style: Theme.of(context)
+                .textTheme
+                .bodyText1!
+                .copyWith(color: kPrimaryColor),
           ),
         ),
-        SizedBox(height: 18),
+        const SizedBox(height: 18),
         Material(
-          // borderRadius: BorderRadius.circular(10),
-          color: kPrimaryColor,
-          elevation: 2,
+          borderRadius: BorderRadius.circular(10),
+          color: kContentColorLightTheme,
+          elevation: 7,
           child: Container(
-            padding: EdgeInsets.fromLTRB(10, 20, 10, 10),
-            height: 180,
+            padding: EdgeInsets.fromLTRB(0, 20, 0, 10),
+            height: 170,
             child: ListView.builder(
               // padding: EdgeInsets.only(left: 10.0),
               scrollDirection: Axis.horizontal,
@@ -46,7 +49,7 @@ class _BanksWidgetState extends State<BanksWidget> {
                 child: Column(
                   children: [
                     Padding(
-                      padding: EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(12),
                       child: CircleAvatar(
                         backgroundColor: kContentDarkTheme,
                         radius: 40,
@@ -57,7 +60,10 @@ class _BanksWidgetState extends State<BanksWidget> {
                       padding: EdgeInsets.only(top: 1),
                       child: Text(
                         banks[index].name,
-                        style: Theme.of(context).textTheme.headline6,
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline6!
+                            .copyWith(color: kContentDarkTheme),
                       ),
                     ),
                   ],

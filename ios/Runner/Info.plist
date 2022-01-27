@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Wakala</string>
+	<string>We xchange</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -22,8 +22,20 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>https</string>
+		<string>http</string>
+		<string>tel</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Wakala App uses location to connect you to a nearest agent</string>
+	<key>NSLocationUsageDescription</key>
+	<string>Wakala App uses location to connect you to a nearest agent</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>This app needs access to location when in the background.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -43,17 +55,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Wakala App uses location to connect you to a nearest agent</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>This app needs access to location when in the background.</string>
-	<key>NSLocationUsageDescription</key>
-	<string>Wakala App uses location to connect you to a nearest agent</string>
-	<key>LSApplicationQueriesSchemes</key>
-    <array>
-      <string>https</string>
-      <string>http</string>
-      <string>tel</string>
-    </array>
 </dict>
 </plist>

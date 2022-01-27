@@ -35,8 +35,8 @@ class _WithdrawDetailState extends State<WithdrawDetail> {
           elevation: 0,
           title: Text("Deposit ${widget.mno.name} Agent".toLowerCase()),
         ),
-        body: Padding(
-          padding: const EdgeInsets.fromLTRB(15, 100, 15, 80),
+        body: Container(
+          padding: const EdgeInsets.fromLTRB(15, 45, 15, 30),
           child: Form(
             key: _formKey,
             child: Column(

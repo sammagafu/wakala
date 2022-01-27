@@ -4,10 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:wakala/constants/constants.dart';
-import 'package:wakala/model/banks.dart';
 import 'package:wakala/screen/dashboard/userdashboard/sucesstransfer.dart';
-
-enum TransactionStatus { Cancelled, Ongoing, Finished }
 
 class WithdrawBank extends StatefulWidget {
   final banks;
@@ -26,7 +23,6 @@ class _WithdrawBankState extends State<WithdrawBank> {
 
   @override
   Widget build(BuildContext context) {
-    final banks = Banks;
     return Scaffold(
       backgroundColor: kPrimaryColor,
       appBar: AppBar(
@@ -35,7 +31,7 @@ class _WithdrawBankState extends State<WithdrawBank> {
         title: Text("Deposit to ${widget.banks.name} Agent".toLowerCase()),
       ),
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(15, 100, 15, 80),
+        padding: const EdgeInsets.fromLTRB(15, 45, 15, 30),
         child: Form(
           key: _formKey,
           child: Column(
@@ -45,7 +41,7 @@ class _WithdrawBankState extends State<WithdrawBank> {
               TextFormField(
                 controller: amountController,
                 keyboardType: TextInputType.number,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   prefixIcon: Icon(
                     Icons.money,
                     color: kContentDarkTheme,
@@ -72,24 +68,24 @@ class _WithdrawBankState extends State<WithdrawBank> {
                   if (value.length > 6) {}
                 },
               ),
-              SizedBox(height: 24),
-              Text("The maximum withdraw is TZS 100,000"),
-              SizedBox(height: 24),
+              const SizedBox(height: 24),
+              const Text("The maximum withdraw is TZS 100,000"),
+              const SizedBox(height: 24),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("Complete deposit"),
+                  const Text("Complete deposit"),
                   NeumorphicButton(
-                    margin: EdgeInsets.only(top: 12),
-                    padding: EdgeInsets.all(25),
+                    margin: const EdgeInsets.only(top: 12),
+                    padding: const EdgeInsets.all(25),
                     onPressed: deposit,
-                    style: NeumorphicStyle(
+                    style: const NeumorphicStyle(
                       lightSource: LightSource.topLeft,
                       shape: NeumorphicShape.flat,
                       boxShape: NeumorphicBoxShape.circle(),
                       color: kPrimaryColor,
                     ),
-                    child: Icon(
+                    child: const Icon(
                       Icons.arrow_forward,
                       color: kContentDarkTheme,
                     ),

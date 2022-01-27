@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wakala/constants/constants.dart';
-import 'package:wakala/model/mno.dart';
 import 'package:wakala/screen/dashboard/userdashboard/tabs/detailpage/withdraw/mno.dart';
+import 'package:wakala/servicesProvided/mno.dart';
 
 class Mno extends StatefulWidget {
   const Mno({Key? key}) : super(key: key);

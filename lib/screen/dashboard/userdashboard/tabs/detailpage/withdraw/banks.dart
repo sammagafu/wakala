@@ -35,8 +35,8 @@ class _WithdrawBankState extends State<WithdrawBank> {
         elevation: 0,
         title: Text("Withdraw ${widget.banks.name} Agent".toLowerCase()),
       ),
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(15, 100, 15, 80),
+      body: Container(
+        padding: const EdgeInsets.fromLTRB(15, 45, 15, 80),
         child: Form(
           key: _formKey,
           child: Column(

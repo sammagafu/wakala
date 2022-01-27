@@ -20,25 +20,26 @@ class _DepositState extends State<Deposit> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: kPrimaryColor,
-      body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.all(15),
-          child: Column(
-            children: [
-              Align(
-                alignment: Alignment.topLeft,
-                child: Text(
-                  "Deposit",
-                  style: Theme.of(context).textTheme.headline2,
-                ),
-              ),
-              Mno(),
-              BanksWidget(),
-            ],
+    return Container(
+      padding: const EdgeInsets.fromLTRB(15, 65, 15, 30),
+      child: Column(
+        children: [
+          const SizedBox(
+            height: 25,
           ),
-        ),
+          Align(
+            alignment: Alignment.topLeft,
+            child: Text(
+              "Deposit",
+              style: Theme.of(context)
+                  .textTheme
+                  .headline2!
+                  .copyWith(color: kPrimaryColor),
+            ),
+          ),
+          const Mno(),
+          const BanksWidget(),
+        ],
       ),
     );
   }

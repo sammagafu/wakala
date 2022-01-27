@@ -6,7 +6,7 @@
     <!-- Include only if your app benefits from precise location access. -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
    <application
-        android:label="wakala"
+        android:label="We Xchange"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

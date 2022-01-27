@@ -44,17 +44,23 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.fromLTRB(15, 100, 15, 30),
-      color: kPrimaryColor,
+      padding: const EdgeInsets.fromLTRB(15, 65, 15, 30),
+      // color: kPrimaryColor,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          const SizedBox(
+            height: 25,
+          ),
           Align(
             alignment: Alignment.topLeft,
             child: Text(
               "Welcome",
-              style: Theme.of(context).textTheme.headline2,
+              style: Theme.of(context)
+                  .textTheme
+                  .headline2!
+                  .copyWith(color: kPrimaryColor),
             ),
           ),
           Align(
@@ -63,7 +69,10 @@ class _HomeState extends State<Home> {
               children: [
                 Text(
                   "$_currentUserProfile",
-                  style: Theme.of(context).textTheme.headline5,
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline5!
+                      .copyWith(color: kPrimaryColor),
                 ),
               ],
             ),
@@ -73,8 +82,8 @@ class _HomeState extends State<Home> {
           ),
           Container(
             height: 1,
-            color: kContentDarkTheme,
-            width: MediaQuery.of(context).size.width * .5,
+            color: kPrimaryColor,
+            width: MediaQuery.of(context).size.width * .45,
           ),
           const SizedBox(
             height: 18,
@@ -82,7 +91,13 @@ class _HomeState extends State<Home> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text("Switch to User account"),
+              Text(
+                "Switch to Agent account",
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText2!
+                    .copyWith(color: kPrimaryColor),
+              ),
               Switch(
                   value: _isuser,
                   onChanged: (value) {
@@ -144,7 +159,13 @@ class _HomeState extends State<Home> {
             ],
           ),
           const SizedBox(height: 24),
-          const Text("My last activities"),
+          Text(
+            "My last activities",
+            style: Theme.of(context)
+                .textTheme
+                .bodyText2!
+                .copyWith(color: kPrimaryColor),
+          ),
           Expanded(
             child: StreamBuilder<QuerySnapshot>(
               stream: _db
@@ -172,32 +193,56 @@ class _HomeState extends State<Home> {
                                         'withdraw'
                                     ? const Icon(
                                         Icons.arrow_circle_down,
-                                        color: kContentDarkTheme,
+                                        color: kPrimaryColor,
                                       )
                                     : const Icon(
                                         Icons.arrow_circle_up,
-                                        color: kContentDarkTheme,
+                                        color: kPrimaryColor,
                                       ),
                                 const SizedBox(
                                   width: 10,
                                 ),
-                                Text(messages.elementAt(index)['service']),
+                                Text(
+                                  messages.elementAt(index)['service'],
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyText2!
+                                      .copyWith(color: kPrimaryColor),
+                                ),
                                 const SizedBox(
                                   width: 30,
                                 ),
-                                Text(messages.elementAt(index)['carrier']),
+                                Text(
+                                  messages.elementAt(index)['carrier'],
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyText2!
+                                      .copyWith(color: kPrimaryColor),
+                                ),
                                 const SizedBox(
                                   width: 30,
                                 ),
-                                Text(messages.elementAt(index)['amount']),
+                                Text(
+                                  messages.elementAt(index)['amount'],
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyText2!
+                                      .copyWith(color: kPrimaryColor),
+                                ),
                               ],
                             ),
                           ],
                         );
                       });
                 } else {
-                  return const Center(
-                    child: Text("No recent activities"),
+                  return Center(
+                    child: Text(
+                      "No recent activities",
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyText2!
+                          .copyWith(color: kPrimaryColor),
+                    ),
                   );
                 }
               },

@@ -15,15 +15,20 @@ class _WithdrawState extends State<Withdraw> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: kPrimaryColor,
       padding: EdgeInsets.fromLTRB(15, 65, 15, 30),
       child: Column(
         children: [
+          const SizedBox(
+            height: 25,
+          ),
           Align(
             alignment: Alignment.topLeft,
             child: Text(
               "Withdraw",
-              style: Theme.of(context).textTheme.headline2,
+              style: Theme.of(context)
+                  .textTheme
+                  .headline2!
+                  .copyWith(color: kPrimaryColor),
             ),
           ),
           Mno(),

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:wakala/screen/dashboard/admindashboard/agentdashboard.dart';
@@ -10,11 +11,21 @@ import 'package:wakala/screen/welcomescreen/createaccount.dart';
 import 'package:wakala/screen/welcomescreen/landingscreen.dart';
 import 'package:wakala/screen/welcomescreen/login.dart';
 import 'package:wakala/theme/theme.dart';
+import 'package:provider/provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        StreamProvider.value(
+            value: FirebaseAuth.instance.authStateChanges(),
+            initialData: FirebaseAuth.instance.currentUser),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

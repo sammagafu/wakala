@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wakala/constants/constants.dart';
-import 'package:wakala/model/banks.dart';
 import 'package:wakala/screen/dashboard/userdashboard/tabs/detailpage/withdraw/banks.dart';
+import 'package:wakala/servicesProvided/banks.dart';
 
 class BanksWidget extends StatefulWidget {
   const BanksWidget({Key? key}) : super(key: key);
