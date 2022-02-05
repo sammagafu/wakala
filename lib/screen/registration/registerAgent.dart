@@ -29,7 +29,8 @@ class _RegisterUserAgentState extends State<RegisterUserAgent> {
       body: SingleChildScrollView(
         child: Container(
           color: kPrimaryColor,
-          padding: EdgeInsets.only(top: 100, left: 18, right: 18, bottom: 100),
+          padding:
+              const EdgeInsets.only(top: 100, left: 18, right: 18, bottom: 100),
           child: Form(
             key: _formKey,
             child: Column(
@@ -41,7 +42,7 @@ class _RegisterUserAgentState extends State<RegisterUserAgent> {
                   style: Theme.of(context).textTheme.headline3,
                 ),
                 Text(
-                  "Create an Account as Agent",
+                  "Create an Account",
                   style: Theme.of(context).textTheme.headline5,
                 ),
                 SizedBox(height: 32),
@@ -265,7 +266,7 @@ class _RegisterUserAgentState extends State<RegisterUserAgent> {
                         "I have Account Log in",
                         style: Theme.of(context).textTheme.headline5,
                       ),
-                      Padding(padding: EdgeInsets.fromLTRB(20, 0, 0, 0)),
+                      const Padding(padding: EdgeInsets.fromLTRB(20, 0, 0, 0)),
                       const Icon(
                         Icons.arrow_forward_ios_rounded,
                         color: kContentDarkTheme,

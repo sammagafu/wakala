@@ -1,12 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:wakala/constants/constants.dart';
 import 'package:wakala/screen/dashboard/userdashboard/sucesstransfer.dart';
-
-enum TransactionStatus { Cancelled, Ongoing, Finished }
 
 class WithdrawDetail extends StatefulWidget {
   final mno;
@@ -71,24 +68,24 @@ class _WithdrawDetailState extends State<WithdrawDetail> {
                     if (value.length > 6) {}
                   },
                 ),
-                SizedBox(height: 24),
-                Text("The maximum withdraw is TZS 100,000"),
-                SizedBox(height: 24),
+                const SizedBox(height: 24),
+                const Text("The maximum withdraw is TZS 100,000"),
+                const SizedBox(height: 24),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("Complete withdraw"),
+                    const Text("Complete withdraw"),
                     NeumorphicButton(
-                      margin: EdgeInsets.only(top: 12),
-                      padding: EdgeInsets.all(25),
+                      margin: const EdgeInsets.only(top: 12),
+                      padding: const EdgeInsets.all(25),
                       onPressed: withdraw,
-                      style: NeumorphicStyle(
+                      style: const NeumorphicStyle(
                         lightSource: LightSource.topLeft,
                         shape: NeumorphicShape.flat,
-                        boxShape: NeumorphicBoxShape.circle(),
+                        boxShape: const NeumorphicBoxShape.circle(),
                         color: kPrimaryColor,
                       ),
-                      child: Icon(
+                      child: const Icon(
                         Icons.arrow_forward,
                         color: kContentDarkTheme,
                       ),

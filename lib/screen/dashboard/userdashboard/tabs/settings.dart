@@ -59,7 +59,7 @@ class _SettingState extends State<Setting> {
                   color: Colors.grey,
                   borderRadius: BorderRadius.all(Radius.circular(5))),
               child: Padding(
-                padding: EdgeInsets.fromLTRB(40, 5, 20, 5),
+                padding: const EdgeInsets.fromLTRB(40, 5, 20, 5),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -83,7 +83,7 @@ class _SettingState extends State<Setting> {
               onPressed: () {},
               style: TextButton.styleFrom(
                 backgroundColor: Colors.grey,
-                padding: EdgeInsets.fromLTRB(40, 15, 20, 15),
+                padding: const EdgeInsets.fromLTRB(40, 15, 20, 15),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

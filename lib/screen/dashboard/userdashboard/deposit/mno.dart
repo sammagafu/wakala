@@ -32,7 +32,7 @@ class _MnoState extends State<Mno> {
           color: kContentColorLightTheme,
           elevation: 7,
           child: Container(
-            padding: EdgeInsets.fromLTRB(10, 20, 10, 10),
+            padding: const EdgeInsets.fromLTRB(10, 20, 10, 10),
             height: 180,
             child: ListView.builder(
               // padding: EdgeInsets.only(left: 10.0),
@@ -49,7 +49,7 @@ class _MnoState extends State<Mno> {
                 child: Column(
                   children: [
                     Padding(
-                      padding: EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(10),
                       child: CircleAvatar(
                         backgroundColor: kContentDarkTheme,
                         radius: 40,
@@ -57,7 +57,7 @@ class _MnoState extends State<Mno> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(top: 1),
+                      padding: const EdgeInsets.only(top: 1),
                       child: Text(
                         mno[index].name,
                         style: Theme.of(context).textTheme.headline6,

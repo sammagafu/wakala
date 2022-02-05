@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:wakala/constants/constants.dart';
@@ -81,8 +80,8 @@ class _WithdrawBankState extends State<WithdrawBank> {
                 children: [
                   const Text("Complete withdraw"),
                   NeumorphicButton(
-                    margin: EdgeInsets.only(top: 12),
-                    padding: EdgeInsets.all(25),
+                    margin: const EdgeInsets.only(top: 12),
+                    padding: const EdgeInsets.all(25),
                     onPressed: withdraw,
                     style: const NeumorphicStyle(
                       lightSource: LightSource.topLeft,

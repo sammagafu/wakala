@@ -2,15 +2,13 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+// import 'package:geolocator/geolocator.dart';
+// import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:smooth_star_rating_null_safety/smooth_star_rating_null_safety.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:wakala/constants/constants.dart';
 import 'package:wakala/screen/dashboard/admindashboard/tabs/message.dart';
 import 'package:wakala/screen/dashboard/userdashboard/userdashboard.dart';
-
-enum TransactionStatus { Cancelled, Ongoing, Finished }
 
 class SuccessScreen extends StatefulWidget {
   final data;
@@ -169,10 +167,10 @@ class _SuccessScreenState extends State<SuccessScreen> {
                   if (snapshot.data!["status"] == "completed") {
                     return Container(
                       color: kPrimaryColor,
-                      padding: EdgeInsets.fromLTRB(20, 20, 20, 45),
+                      padding: const EdgeInsets.fromLTRB(20, 20, 20, 45),
                       child: Column(
                         children: [
-                          SizedBox(height: 12),
+                          const SizedBox(height: 12),
                           const Icon(
                             Icons.mood,
                             size: 80,
@@ -182,7 +180,7 @@ class _SuccessScreenState extends State<SuccessScreen> {
                             "Thanks for choosing us, Please rate the service",
                             textAlign: TextAlign.center,
                           ),
-                          SizedBox(height: 42),
+                          const SizedBox(height: 42),
                           SmoothStarRating(
                               size: 40,
                               rating: rating,
@@ -199,7 +197,7 @@ class _SuccessScreenState extends State<SuccessScreen> {
                                   rating = value;
                                 });
                               }),
-                          Spacer(),
+                          const Spacer(),
                           ElevatedButton(
                             onPressed: () {
                               Navigator.pop(context, UserDashboard.id);
@@ -223,7 +221,7 @@ class _SuccessScreenState extends State<SuccessScreen> {
                     var amount = snapshot.data!["amount"];
                     return Container(
                       color: kPrimaryColor,
-                      padding: EdgeInsets.fromLTRB(20, 20, 20, 45),
+                      padding: const EdgeInsets.fromLTRB(20, 20, 20, 45),
                       child: Column(
                         children: [
                           const SizedBox(height: 12),
@@ -322,7 +320,7 @@ class _SuccessScreenState extends State<SuccessScreen> {
                                       builder: (BuildContext context,
                                           AsyncSnapshot snapshot) {
                                         if (!snapshot.hasData) {
-                                          return CircularProgressIndicator();
+                                          return const CircularProgressIndicator();
                                         }
                                         var phonenumber =
                                             snapshot.data!.docs.first;
@@ -366,7 +364,7 @@ class _SuccessScreenState extends State<SuccessScreen> {
                   }
                   return Container(
                     color: kPrimaryColor,
-                    padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
+                    padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
                     child: Column(
                       children: [
                         const SizedBox(height: 12),

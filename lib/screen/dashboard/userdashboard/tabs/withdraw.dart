@@ -15,7 +15,7 @@ class _WithdrawState extends State<Withdraw> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.fromLTRB(15, 65, 15, 30),
+      padding: const EdgeInsets.fromLTRB(15, 65, 15, 30),
       child: Column(
         children: [
           const SizedBox(
@@ -31,8 +31,8 @@ class _WithdrawState extends State<Withdraw> {
                   .copyWith(color: kPrimaryColor),
             ),
           ),
-          Mno(),
-          BanksWidget(),
+          const Mno(),
+          const BanksWidget(),
         ],
       ),
     );

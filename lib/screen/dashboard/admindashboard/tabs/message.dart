@@ -39,7 +39,7 @@ class _MessageState extends State<Message> {
       appBar: AppBar(
         leading: null,
         backgroundColor: kPrimaryColor,
-        title: Text("Message"),
+        title: const Text("Message"),
       ),
       body: SafeArea(
         child: Column(
@@ -95,9 +95,9 @@ class _MessageState extends State<Message> {
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     hintText: "Enter your message",
-                    hintStyle: TextStyle(color: Colors.grey),
+                    hintStyle: const TextStyle(color: Colors.grey),
                     contentPadding:
-                        EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                        const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
                     isDense: true,
                     suffixIcon: IconButton(
                       onPressed: () {
@@ -125,7 +125,9 @@ class _MessageState extends State<Message> {
 }
 
 class MessageBubble extends StatelessWidget {
-  MessageBubble({required this.sender, required this.text, required this.isMe});
+  const MessageBubble(
+      {Key? key, required this.sender, required this.text, required this.isMe})
+      : super(key: key);
 
   final String sender;
   final String text;
@@ -134,7 +136,7 @@ class MessageBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(4.0),
+      padding: const EdgeInsets.all(4.0),
       child: Column(
         crossAxisAlignment:
             isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,

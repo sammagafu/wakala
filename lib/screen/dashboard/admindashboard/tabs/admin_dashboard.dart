@@ -1,9 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:wakala/constants/constants.dart';
-import 'package:wakala/screen/dashboard/admindashboard/agentdashboard.dart';
 import 'package:wakala/screen/dashboard/admindashboard/tabs/transaction_on_move.dart';
 import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
 
@@ -15,8 +13,7 @@ class AdminDashboard extends StatefulWidget {
 }
 
 class _AdminDashboardState extends State<AdminDashboard> {
-  @override
-  late var requestingUser;
+  // late var requestingUser;
   final _currentUserProfile = FirebaseAuth.instance.currentUser?.displayName;
   final Stream<QuerySnapshot> _transaction = FirebaseFirestore.instance
       .collection('transaction')
@@ -140,6 +137,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
   final CollectionReference ttrips =
       FirebaseFirestore.instance.collection("transaction_trips");
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       // backgroundColor: kPrimaryColor,
@@ -150,7 +148,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
             if (snapshot.hasData) {
               if (snapshot.data!.docs.isEmpty) {
                 return Padding(
-                  padding: EdgeInsets.fromLTRB(24, 88, 24, 48),
+                  padding: const EdgeInsets.fromLTRB(24, 88, 24, 48),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -208,7 +206,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                       ),
                       const SizedBox(height: 150),
                       // Center(child: CircularProgressIndicator()),
-                      Center(
+                      const Center(
                         child: Text(
                           "Looking for clients please wait...",
                           textAlign: TextAlign.center,
@@ -245,7 +243,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                           const SizedBox(
                             height: 24,
                           ),
-                          Separator(),
+                          const Separator(),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -253,7 +251,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                               Text(_transactionData["carrier"]),
                             ],
                           ),
-                          Separator(),
+                          const Separator(),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -261,7 +259,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                               Text(_transactionData["service"]),
                             ],
                           ),
-                          Separator(),
+                          const Separator(),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -269,7 +267,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
                               Text(_transactionData["amount"]),
                             ],
                           ),
-                          Separator(),
+                          const Separator(),
                           _transactionData["service"] == "withdraw"
                               ? showWithdrawrates(
                                   double.parse(_transactionData["amount"]))

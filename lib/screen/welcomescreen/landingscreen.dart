@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:wakala/constants/constants.dart';
-import 'package:wakala/screen/welcomescreen/createaccount.dart';
+import 'package:wakala/screen/registration/registerAgent.dart';
 import 'package:wakala/screen/welcomescreen/login.dart';
 import 'package:geolocator/geolocator.dart';
 
 class LandingScreen extends StatefulWidget {
   const LandingScreen({Key? key}) : super(key: key);
+  static String id = "Landing screen";
 
   @override
   State<LandingScreen> createState() => _LandingScreenState();
@@ -25,7 +26,7 @@ class _LandingScreenState extends State<LandingScreen> {
   Widget build(BuildContext context) {
     return Container(
       color: kPrimaryColor,
-      padding: EdgeInsets.fromLTRB(20, 135, 20, 48),
+      padding: const EdgeInsets.fromLTRB(20, 135, 20, 48),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -43,14 +44,15 @@ class _LandingScreenState extends State<LandingScreen> {
             style: Theme.of(context).textTheme.headline3,
             textAlign: TextAlign.center,
           ),
-          Spacer(),
+          const Spacer(),
           TextButton(
             onPressed: () {
-              Navigator.pushNamed(context, CreateAccount.id);
+              //changed to register agent directly
+              Navigator.pushNamed(context, RegisterUserAgent.id);
             },
             style: TextButton.styleFrom(
               backgroundColor: kSecondaryColor,
-              padding: EdgeInsets.all(20),
+              padding: const EdgeInsets.all(20),
             ),
             child: Row(
               children: [
@@ -58,7 +60,7 @@ class _LandingScreenState extends State<LandingScreen> {
                   "Creeate an account",
                   style: Theme.of(context).textTheme.headline5,
                 ),
-                Padding(padding: EdgeInsets.fromLTRB(20, 0, 0, 0)),
+                const Padding(padding: EdgeInsets.fromLTRB(20, 0, 0, 0)),
                 const Icon(
                   Icons.arrow_forward_ios_rounded,
                   color: kContentDarkTheme,
@@ -67,22 +69,22 @@ class _LandingScreenState extends State<LandingScreen> {
               ],
             ),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           OutlinedButton(
             onPressed: () {
               Navigator.pushNamed(context, LoginScreen.id);
             },
             style: TextButton.styleFrom(
-                padding: EdgeInsets.all(20),
-                side: BorderSide(color: Colors.white)),
+                padding: const EdgeInsets.all(20),
+                side: const BorderSide(color: Colors.white)),
             child: Row(
               children: [
                 Text(
                   "Login",
                   style: Theme.of(context).textTheme.headline5,
                 ),
-                Padding(padding: EdgeInsets.fromLTRB(20, 0, 0, 0)),
-                Icon(
+                const Padding(padding: EdgeInsets.fromLTRB(20, 0, 0, 0)),
+                const Icon(
                   Icons.arrow_forward_ios_rounded,
                   color: kContentDarkTheme,
                   size: 16,
@@ -90,7 +92,7 @@ class _LandingScreenState extends State<LandingScreen> {
               ],
             ),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           Text(
             "This app does not do any transaction",
             style: Theme.of(context).textTheme.bodyText1,

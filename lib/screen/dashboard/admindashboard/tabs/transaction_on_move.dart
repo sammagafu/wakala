@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:wakala/constants/constants.dart';
@@ -12,7 +11,7 @@ class TransactionOnMove extends StatefulWidget {
   static final String id = "transaction on move";
   final data;
 
-  const TransactionOnMove(this.data);
+  const TransactionOnMove(this.data, {Key? key}) : super(key: key);
 
   @override
   _TransactionOnMoveState createState() => _TransactionOnMoveState();
@@ -70,14 +69,15 @@ class _TransactionOnMoveState extends State<TransactionOnMove> {
                             snapshot.data.longitude);
                         print("the distance between is $distanceInMeters");
                         final Marker _clientsLocation = Marker(
-                            markerId: MarkerId('_clientlocation'),
-                            infoWindow: InfoWindow(title: "Client's location"),
+                            markerId: const MarkerId('_clientlocation'),
+                            infoWindow:
+                                const InfoWindow(title: "Client's location"),
                             icon: BitmapDescriptor.defaultMarkerWithHue(
                                 BitmapDescriptor.hueBlue),
                             position: LatLng(latitude, longitude));
                         final Marker _myLocation = Marker(
-                            markerId: MarkerId('_mylocation'),
-                            infoWindow: InfoWindow(title: "My Location"),
+                            markerId: const MarkerId('_mylocation'),
+                            infoWindow: const InfoWindow(title: "My Location"),
                             icon: BitmapDescriptor.defaultMarkerWithHue(
                                 BitmapDescriptor.hueBlue),
                             position: LatLng(snapshot.data.latitude,

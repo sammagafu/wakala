@@ -32,7 +32,7 @@ class _BanksWidgetState extends State<BanksWidget> {
           color: kContentColorLightTheme,
           elevation: 7,
           child: Container(
-            padding: EdgeInsets.fromLTRB(0, 20, 0, 10),
+            padding: const EdgeInsets.fromLTRB(0, 20, 0, 10),
             height: 170,
             child: ListView.builder(
               // padding: EdgeInsets.only(left: 10.0),
@@ -57,7 +57,7 @@ class _BanksWidgetState extends State<BanksWidget> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(top: 1),
+                      padding: const EdgeInsets.only(top: 1),
                       child: Text(
                         banks[index].name,
                         style: Theme.of(context)

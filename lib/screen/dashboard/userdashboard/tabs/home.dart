@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:wakala/constants/constants.dart';
@@ -120,7 +118,7 @@ class _HomeState extends State<Home> {
                   color: kContentColorLightTheme,
                   elevation: 5,
                   child: Container(
-                    padding: EdgeInsets.all(24),
+                    padding: const EdgeInsets.all(24),
                     child: Column(
                       children: [
                         Text(
@@ -141,7 +139,7 @@ class _HomeState extends State<Home> {
                   color: kSecondaryColor,
                   elevation: 5,
                   child: Container(
-                    padding: EdgeInsets.all(24),
+                    padding: const EdgeInsets.all(24),
                     child: Column(
                       children: [
                         Text(

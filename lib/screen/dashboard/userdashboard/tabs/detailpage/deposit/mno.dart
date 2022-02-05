@@ -82,7 +82,7 @@ class _WithdrawDetailState extends State<WithdrawDetail> {
                     const Text("Complete deposit"),
                     NeumorphicButton(
                       margin: const EdgeInsets.only(top: 12),
-                      padding: EdgeInsets.all(25),
+                      padding: const EdgeInsets.all(25),
                       onPressed: deposit,
                       style: const NeumorphicStyle(
                         lightSource: LightSource.topLeft,

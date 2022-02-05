@@ -1,4 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:wakala/constants/constants.dart';
@@ -12,8 +12,8 @@ class AdminSettings extends StatefulWidget {
 }
 
 class _AdminSettingsState extends State<AdminSettings> {
-  final bool _isuser = false;
-  final _userprofile = FirebaseFirestore.instance.collection("user_profile");
+  // final bool _isuser = false;
+  // final _userprofile = FirebaseFirestore.instance.collection("user_profile");
 
   Future<void> _signOut() async {
     await FirebaseAuth.instance.signOut();
@@ -25,7 +25,7 @@ class _AdminSettingsState extends State<AdminSettings> {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.all(15),
+          padding: const EdgeInsets.all(15),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -54,7 +54,7 @@ class _AdminSettingsState extends State<AdminSettings> {
                 onPressed: () {},
                 style: TextButton.styleFrom(
                   backgroundColor: Colors.grey,
-                  padding: EdgeInsets.fromLTRB(40, 15, 20, 15),
+                  padding: const EdgeInsets.fromLTRB(40, 15, 20, 15),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -63,7 +63,7 @@ class _AdminSettingsState extends State<AdminSettings> {
                       "Update Profile",
                       style: Theme.of(context).textTheme.bodyText2,
                     ),
-                    Icon(
+                    const Icon(
                       Icons.arrow_forward_ios,
                       color: kContentDarkTheme,
                     )
@@ -77,7 +77,7 @@ class _AdminSettingsState extends State<AdminSettings> {
                 onPressed: () {},
                 style: TextButton.styleFrom(
                   backgroundColor: Colors.grey,
-                  padding: EdgeInsets.fromLTRB(40, 15, 20, 15),
+                  padding: const EdgeInsets.fromLTRB(40, 15, 20, 15),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -86,19 +86,19 @@ class _AdminSettingsState extends State<AdminSettings> {
                       "Change Password",
                       style: Theme.of(context).textTheme.bodyText2,
                     ),
-                    Icon(
+                    const Icon(
                       Icons.arrow_forward_ios,
                       color: kContentDarkTheme,
                     )
                   ],
                 ),
               ),
-              Spacer(),
+              const Spacer(),
               TextButton(
                 onPressed: _signOut,
                 style: TextButton.styleFrom(
                   backgroundColor: Colors.grey,
-                  padding: EdgeInsets.fromLTRB(40, 15, 20, 15),
+                  padding: const EdgeInsets.fromLTRB(40, 15, 20, 15),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -110,7 +110,7 @@ class _AdminSettingsState extends State<AdminSettings> {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 34,
               )
             ],

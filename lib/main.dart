@@ -6,12 +6,13 @@ import 'package:wakala/screen/dashboard/userdashboard/tabs/deposit.dart';
 import 'package:wakala/screen/dashboard/userdashboard/tabs/withdraw.dart';
 import 'package:wakala/screen/dashboard/userdashboard/userdashboard.dart';
 import 'package:wakala/screen/registration/registerAgent.dart';
-import 'package:wakala/screen/registration/registerClient.dart';
-import 'package:wakala/screen/welcomescreen/createaccount.dart';
 import 'package:wakala/screen/welcomescreen/landingscreen.dart';
+import 'package:wakala/screen/welcomescreen/language.dart';
 import 'package:wakala/screen/welcomescreen/login.dart';
 import 'package:wakala/theme/theme.dart';
 import 'package:provider/provider.dart';
+
+// import 'package:';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,12 +36,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: wakalaTheme(),
-      home: const LandingScreen(),
+      home: const Language(),
       routes: {
+        LandingScreen.id: (context) => const LandingScreen(),
         LoginScreen.id: (context) => const LoginScreen(),
-        CreateAccount.id: (context) => const CreateAccount(),
         RegisterUserAgent.id: (context) => RegisterUserAgent(),
-        RegisterUserClient.id: (context) => const RegisterUserClient(),
         UserDashboard.id: (context) => const UserDashboard(),
         AgentDashboard.id: (context) => const AgentDashboard(),
         Withdraw.id: (context) => const Withdraw(),

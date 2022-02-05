@@ -1,12 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:wakala/constants/constants.dart';
 import 'package:wakala/screen/dashboard/admindashboard/agentdashboard.dart';
 import 'package:wakala/screen/dashboard/userdashboard/userdashboard.dart';
-import 'package:wakala/screen/welcomescreen/createaccount.dart';
+import 'package:wakala/screen/registration/registerAgent.dart';
 
 class LoginScreen extends StatefulWidget {
   static String id = "Login Account";
@@ -30,7 +29,7 @@ class _LoginScreenState extends State<LoginScreen> {
       backgroundColor: kPrimaryColor,
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.fromLTRB(20, 135, 20, 30),
+          padding: const EdgeInsets.fromLTRB(20, 135, 20, 30),
           child: Form(
             key: _formKey,
             child: Column(
@@ -43,7 +42,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   color: kContentDarkTheme,
                   height: 85.0,
                 ),
-                SizedBox(height: 50),
+                const SizedBox(height: 50),
                 TextFormField(
                   keyboardType: TextInputType.emailAddress,
                   textCapitalization: TextCapitalization.none,
@@ -59,7 +58,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     return null;
                   },
                   onSaved: (value) {},
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     prefixIcon: Icon(
                       Icons.person,
                       color: kContentDarkTheme,
@@ -80,7 +79,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                 ),
-                SizedBox(height: 18),
+                const SizedBox(height: 18),
                 TextFormField(
                   controller: passwordController,
                   autofocus: false,
@@ -90,8 +89,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       return ("Please Enter your Password");
                     }
                   },
-                  decoration: InputDecoration(
-                    prefixIcon: Icon(
+                  decoration: const InputDecoration(
+                    prefixIcon: const Icon(
                       Icons.lock,
                       color: kContentDarkTheme,
                     ),
@@ -111,7 +110,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                 ),
-                SizedBox(height: 12),
+                const SizedBox(height: 12),
                 Text(
                   errorMessage,
                   style: Theme.of(context)
@@ -119,28 +118,28 @@ class _LoginScreenState extends State<LoginScreen> {
                       .caption
                       ?.copyWith(color: kErrorColor),
                 ),
-                SizedBox(height: 12),
+                const SizedBox(height: 12),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     NeumorphicButton(
-                      margin: EdgeInsets.only(top: 12),
-                      padding: EdgeInsets.all(25),
+                      margin: const EdgeInsets.only(top: 12),
+                      padding: const EdgeInsets.all(25),
                       onPressed: signIn,
-                      style: NeumorphicStyle(
+                      style: const NeumorphicStyle(
                         lightSource: LightSource.topLeft,
                         shape: NeumorphicShape.flat,
                         boxShape: NeumorphicBoxShape.circle(),
                         color: kPrimaryColor,
                       ),
-                      child: Icon(
+                      child: const Icon(
                         Icons.arrow_forward,
                         color: kContentDarkTheme,
                       ),
                     ),
                   ],
                 ),
-                SizedBox(height: 24),
+                const SizedBox(height: 24),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -163,7 +162,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     const Text("Dont have an account?"),
                     TextButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, CreateAccount.id);
+                        Navigator.pushNamed(context, RegisterUserAgent.id);
                       },
                       child: Text(
                         "create account",
