@@ -90,7 +90,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     }
                   },
                   decoration: const InputDecoration(
-                    prefixIcon: const Icon(
+                    prefixIcon: Icon(
                       Icons.lock,
                       color: kContentDarkTheme,
                     ),

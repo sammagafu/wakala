@@ -15,6 +15,7 @@ class _WithdrawState extends State<Withdraw> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: kContentDarkTheme,
       padding: const EdgeInsets.fromLTRB(15, 65, 15, 30),
       child: Column(
         children: [

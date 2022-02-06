@@ -18,9 +18,7 @@ class _RegisterUserAgentState extends State<RegisterUserAgent> {
   TextEditingController emailController = TextEditingController();
   TextEditingController phoneNumberController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  final is_agent = true;
   final _auth = FirebaseAuth.instance;
-  final _db = FirebaseFirestore.instance.collection("user_profile");
   String errorMessage = '';
 
   @override
@@ -290,13 +288,6 @@ class _RegisterUserAgentState extends State<RegisterUserAgent> {
         await _auth.createUserWithEmailAndPassword(
             email: emailController.text, password: passwordController.text);
         await _auth.currentUser!.updateDisplayName(fullnameController.text);
-        await _db.doc(_auth.currentUser!.uid).set({
-          'fullname': fullnameController.text,
-          'is_agent': is_agent,
-          'is_user': false,
-          'phone_number': phoneNumberController.text,
-          'uiid': _auth.currentUser!.uid
-        });
         await Navigator.pushNamed(context, LoginScreen.id);
       } on FirebaseAuthException catch (err) {
         if (err.code == 'email-already-in-use') {

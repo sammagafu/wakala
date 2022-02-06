@@ -107,7 +107,6 @@ class _HomeState extends State<Home> {
           ),
           const SizedBox(height: 65),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               GestureDetector(
                 onTap: () {
@@ -117,18 +116,23 @@ class _HomeState extends State<Home> {
                   borderRadius: BorderRadius.circular(10),
                   color: kContentColorLightTheme,
                   elevation: 5,
-                  child: Container(
+                  child: Padding(
                     padding: const EdgeInsets.all(24),
-                    child: Column(
-                      children: [
-                        Text(
-                          "Make withdraw",
-                          style: Theme.of(context).textTheme.headline5,
-                        ),
-                      ],
+                    child: Expanded(
+                      child: Column(
+                        children: [
+                          Text(
+                            "Withdraw",
+                            style: Theme.of(context).textTheme.headline5,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
+              ),
+              const SizedBox(
+                width: 10,
               ),
               GestureDetector(
                 onTap: () {
@@ -138,12 +142,12 @@ class _HomeState extends State<Home> {
                   borderRadius: BorderRadius.circular(10),
                   color: kSecondaryColor,
                   elevation: 5,
-                  child: Container(
+                  child: Padding(
                     padding: const EdgeInsets.all(24),
                     child: Column(
                       children: [
                         Text(
-                          "Make Deposit",
+                          "Deposit",
                           style: Theme.of(context)
                               .textTheme
                               .headline5
